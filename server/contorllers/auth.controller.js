@@ -1,7 +1,7 @@
 const AuthService = require("../services/auth.service");
 
 const AuthController = {
-    login: async (req, res) => {
+    registaion: async (req, res) => {
         try {
             const {
                 username,
@@ -24,12 +24,29 @@ const AuthController = {
             }
             const { otp } = req.body
 
-            const reuslt = await AuthService.verifyEmail(token, otp, req)
+            const result = await AuthService.verifyEmail(token, otp, req)
+            res.status(200).json(result)
         }
         catch (err) {
             res.json({ success: false, error: err.message })
         }
+    },
+
+    login: async(req, res) => {
+        try{
+            const {
+                email,
+                password
+            } = req.body
+
+            const result = await AuthService.login(email, password, req)
+            res.status(200).json(result)
+        }
+        catch(err){
+            res.json({ success: false, error: err.message })
+        }
     }
+   
 };
 
 module.exports = AuthController;
