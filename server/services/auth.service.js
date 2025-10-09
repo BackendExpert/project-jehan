@@ -138,7 +138,7 @@ class AuthService {
 
     // -------------------------------------- Email Verifitcaiton -------------------------------------------
 
-    static async verifyEmail(email, token, req) {
+    static async verifyEmail(token, otpInput, req) {
         // get token and decoded user 
         let decoded;
         try {
