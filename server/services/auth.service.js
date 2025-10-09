@@ -80,46 +80,63 @@ class AuthService {
 
         await sendEmail({
             to: email,
-            subject: "Verify Your Email - Student Note Management System",
+            subject: "Welcome to Student Note Management System 🎓 | Verify Your Email",
             html: `
-                    <div style="font-family: 'Segoe UI', Arial, sans-serif; background-color: #f9fafb; padding: 30px;">
-                        <div style="max-width: 600px; margin: auto; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 6px 20px rgba(0,0,0,0.1);">
+                <div style="font-family: 'Segoe UI', Arial, sans-serif; background-color: #f4f6f8; padding: 40px 0;">
+                    <div style="max-width: 600px; margin: auto; background: #ffffff; border-radius: 14px; overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,0.08);">
+                        
+                        <!-- Header -->
+                        <div style="background: linear-gradient(135deg, #3b82f6, #1d4ed8); padding: 25px; text-align: center;">
+                            <h1 style="color: #fff; margin: 0; font-size: 26px; font-weight: 700;">Welcome to Student Note Management System</h1>
+                        </div>
 
-                            <!-- Header -->
-                            <div style="background: linear-gradient(90deg, #1e3c72, #2a5298); padding: 20px; text-align: center;">
-                                <h1 style="color: #fff; margin: 0; font-size: 24px;">Student Note Management System</h1>
+                        <!-- Body -->
+                        <div style="padding: 35px; color: #333;">
+                            <h2 style="font-size: 22px; margin-bottom: 10px; color: #1e3a8a;">Hello ${username},</h2>
+
+                            <p style="font-size: 16px; line-height: 1.6; margin-bottom: 20px; color: #374151;">
+                                We’re excited to have you on board! 🎉<br/>
+                                You’ve successfully registered for the <strong>Student Note Management System</strong> — a smart way to manage your academic notes and materials.
+                            </p>
+
+                            <p style="font-size: 16px; color: #374151;">
+                                Before you get started, please verify your email using the One-Time Passcode (OTP) below:
+                            </p>
+
+                            <!-- OTP Box -->
+                            <div style="font-size: 30px; font-weight: 700; letter-spacing: 5px; color: #1d4ed8; background: #eff6ff; padding: 18px; text-align: center; border-radius: 10px; margin: 30px 0;">
+                                ${otp}
                             </div>
 
-                            <!-- Body -->
-                            <div style="padding: 30px; color: #333;">
-                                <h2 style="margin-bottom: 10px; font-size: 22px; color: #2c3e50;">Hello ${username},</h2>
-                                <p style="font-size: 16px; margin-bottom: 20px;">
-                                    Thank you for registering with the <strong>Student Note Management System</strong>. 
-                                    To complete your registration, please use the one-time verification code below:
-                                </p>
+                            <p style="font-size: 15px; color: #6b7280;">
+                                ⏳ This code is valid for <strong>10 minutes</strong>. Please don’t share it with anyone — we care about your security.
+                            </p>
 
-                                <!-- OTP Box -->
-                                <div style="font-size: 28px; font-weight: bold; letter-spacing: 4px; color: #1e3c72; background: #f0f4ff; padding: 15px; text-align: center; border-radius: 8px; margin: 25px 0;">
-                                    ${otp}
-                                </div>
+                            <p style="font-size: 15px; color: #6b7280;">
+                                If you didn’t register for this account, simply ignore this message.
+                            </p>
 
-                                <p style="font-size: 15px; color: #555; margin-bottom: 20px;">
-                                    This code is valid for <strong>10 minutes</strong>. For security reasons, please do not share this code with anyone.
-                                </p>
+                            <!-- Divider -->
+                            <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 30px 0;"/>
 
-                                <p style="font-size: 15px; color: #555;">
-                                    If you didn’t request this, you can safely ignore this email.
-                                </p>
-                            </div>
-
-                            <!-- Footer -->
-                            <div style="background-color: #f9fafb; padding: 15px; text-align: center; font-size: 13px; color: #888;">
-                                <p style="margin: 5px 0;">© ${new Date().getFullYear()} Student Note Management System. All rights reserved.</p>
+                            <!-- Call to Action -->
+                            <div style="text-align: center;">
+                                <a href="#" style="display: inline-block; background: linear-gradient(135deg, #2563eb, #1e40af); color: #fff; padding: 12px 30px; border-radius: 8px; text-decoration: none; font-weight: 600;">
+                                    Verify My Email
+                                </a>
                             </div>
                         </div>
+
+                        <!-- Footer -->
+                        <div style="background-color: #f9fafb; padding: 20px; text-align: center; font-size: 13px; color: #9ca3af;">
+                            <p style="margin: 5px 0;">© ${new Date().getFullYear()} Student Note Management System</p>
+                            <p style="margin: 0;">University of Peradeniya | All Rights Reserved</p>
+                        </div>
                     </div>
-                `,
+                </div>
+            `,
         });
+
 
 
         // hash otp and store in db 
