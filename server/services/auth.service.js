@@ -1,14 +1,26 @@
-const User = require('../models/user.model')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+const crypto = require('crypto')
+
+const User = require('../models/user.model')
 const Role = require('../models/role.model')
+const UserOTP = require('../models/userotp.mode')
+
 const logUserAction = require('../utils/others/logUserAction')
 const sendEmail = require('../utils/email/emailTransporter')
 const tokenCreator = require('../utils/tokens/generateToken')
 
+const {
+    RegistrationResponseDTO,
+    VerifyEmailResponseDTO,
+    LoginResponseDTO,
+    LogoutResponseDTO
+} = require('../dtos/auth.dto')
+
 const PASSWORD_SULT = 10
 
 class AuthService {
-    
+
     // --------------------------------- Registation ------------------------------------------
 
     static async registation(username, email, password, req) {
@@ -129,11 +141,17 @@ class AuthService {
 
         const token = tokenCreator({ email, otp }, "15m");
 
-        return {
-            success: true,
-            token,
-            message: "Registration successful. Verification email sent.",
-        };
+        if (req) {
+            const metadata = {
+                ipAddress: req.headers['x-forwarded-for'] || req.socket.remoteAddress,
+                userAgent: req.headers['user-agent'],
+                timestamp: new Date(),
+            };
+            await logUserAction(req, "login_success", `${checkuser.email} Login Success`, metadata, checkuser._id);
+        }
+
+        return RegistrationResponseDTO(token)
+
     }
 
     // -------------------------------------- Email Verifitcaiton -------------------------------------------
@@ -188,7 +206,7 @@ class AuthService {
                 };
                 await logUserAction(req, "account_verify", `${decoded.email} Accout Verified`, metadata, user._id);
             }
-            return { success: true, message: "Account Verification Successful" };
+            return VerifyEmailResponseDTO()
         } else {
             throw new Error("Internal Server Error");
         }
@@ -260,11 +278,39 @@ class AuthService {
             await logUserAction(req, "login_success", `${user.email} Login Success`, metadata, user._id);
         }
 
-        return {
-            success: true,
-            token,
-            message: "Login Success",
+        return LoginResponseDTO(token, user)
+    }
+
+    // ------------------------------- LOGOUT --------------------------------
+
+    static async logout(req, userId) {
+        // get token and decoded user 
+        let decoded;
+        try {
+            decoded = jwt.verify(token, process.env.JWT_SECRET);
+        } catch (err) {
+            if (err.name === "TokenExpiredError") {
+                throw new Error("Token expired. Please request a new one.");
+            }
+            throw new Error("Invalid token.");
+        }
+
+        const user = await User.findOne({ email: decoded.email });
+        if (!user) throw new Error("User not found");
+
+        const checkotprecode = await UserOTP.findOne({ email: decoded.email });
+        if (!checkotprecode) throw new Error("OTP Record Not found");
+
+
+        const metadata = {
+            ipAddress: req.headers['x-forwarded-for'] || req.socket.remoteAddress,
+            userAgent: req.headers['user-agent'],
+            timestamp: new Date(),
         };
+
+        await logUserAction(req, "logout", `User ${user.email} logged out`, metadata, userId);
+
+        return LogoutResponseDTO()
     }
 }
 

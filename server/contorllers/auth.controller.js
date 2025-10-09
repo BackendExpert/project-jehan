@@ -46,6 +46,8 @@ const AuthController = {
             res.json({ success: false, error: err.message })
         }
     }
+
+    
    
 };
 
