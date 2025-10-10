@@ -2,23 +2,27 @@ const mongoose = require('mongoose');
 
 const NoteSchema = new mongoose.Schema(
     {
-        student: { 
+        student: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
             required: true,
         },
-        title: { 
+        title: {
             type: String,
             required: true,
             trim: true,
         },
-        content: { 
+        content: {
+            type: String,
+            required: true,
+        },
+        file: {
             type: String,
             required: true,
         },
     },
     {
-        timestamps: true, 
+        timestamps: true,
     }
 );
 
