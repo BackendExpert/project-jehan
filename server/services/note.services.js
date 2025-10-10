@@ -1,3 +1,5 @@
 class NoteService {
-    static async CreateNote()
+    static async CreateNote(userid, title, content, uploadfile){
+        
+    }
 }
