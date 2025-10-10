@@ -8,4 +8,6 @@ const router = express.Router();
 
 router.post('/', auth, checkPermission(['note:create']), upload.single('notefile'), NoteController.createNote)
 
+router.put(':id', auth, checkPermission(['note:update']))
+
 module.exports = router;

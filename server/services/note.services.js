@@ -7,6 +7,7 @@ const User = require('../models/user.model')
 
 const {
     CreateNoteResponseDTO,
+    UpdateNoteResponseDTO,
 } = require('../dtos/note.dto');
 
 // create class for noteservice
@@ -88,6 +89,8 @@ class NoteService {
 
         // only note added user can update other cannot 
         if (existingNote.student.toString() !== user._id.toString()) {
+
+            // if user attempt update rocde the recode it
             if (req) {
                 const metadata = {
                     ipAddress: req.headers["x-forwarded-for"] || req.socket.remoteAddress,
@@ -111,8 +114,28 @@ class NoteService {
         if (content !== undefined && content.trim() !== "") existingNote.content = content;
         if (uploadfile !== undefined && uploadfile !== "") existingNote.uploadfile = uploadfile;
 
-        
 
+        const updatedNote = await existingNote.save();
+
+        // if successful then it also recoded
+        if (req) {
+            const metadata = {
+                ipAddress: req.headers["x-forwarded-for"] || req.socket.remoteAddress,
+                userAgent: req.headers["user-agent"],
+                timestamp: new Date(),
+            };
+
+            await logUserAction(
+                req,
+                "update_note",
+                `${decoded.email} updated a note`,
+                metadata,
+                user._id
+            );
+        }
+
+        
+        return UpdateNoteResponseDTO()
 
     }
 }
