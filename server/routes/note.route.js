@@ -12,6 +12,10 @@ router.put(':id', auth, checkPermission(['note:update']), upload.single('notefil
 
 router.delete(':id', auth, checkPermission(['note:delete']), NoteController.deleteNote)
 
+router.get('/', auth, checkPermission(['note:getall']), NoteController.getallnotes)
 
+router.get('/:id', auth, checkPermission(['note:getone']), NoteController.getOneNote)
+
+router.get('/my-notes', auth, checkPermission(['note:mynotes']), NoteController.getmyallnotes)
 
 module.exports = router;
