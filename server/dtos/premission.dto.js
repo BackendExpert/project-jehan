@@ -1,9 +1,9 @@
 // create Permissions
-exports.CreatePremissionDTO = (name, permission) => ({ name, permission })
+exports.CreatePremissionDTO = (roleid, permission) => ({ roleid, permission })
 exports.CreatePremissionResponseDTO = (message = "Permission created successfully") => ({ success: true, message })
 
 // delete Permissions
-exports.DeletePremissionDTO = (permissionid) => ({permissionid})
+exports.DeletePremissionDTO = (roleid, permissionid) => ({roleid, permissionid})
 exports.DeletePremissionResponseDTO = (message = "Permission Deleted successfully") => ({ success: true, message })
 
 // get all Permissions
