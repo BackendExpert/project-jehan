@@ -42,7 +42,7 @@ app.use(morgan("combined"));
 app.use('/api/auth', authRoute)
 
 // health check
-app.get("/api/v1/", (req, res) => {
+app.get("/api", (req, res) => {
     res.send(`✅ Server running on port ${PORT}`);
 });
 

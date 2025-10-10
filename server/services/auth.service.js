@@ -25,7 +25,7 @@ class AuthService {
 
     static async registation(username, email, password, req) {
         // check user is already in db
-        const checkuser = await User.find({ email: email })
+        const checkuser = await User.findOne({ email: email })
 
         if (checkuser) {
             throw new Error("User Already in the System")
@@ -57,7 +57,7 @@ class AuthService {
                 userAgent: req.headers['user-agent'],
                 timestamp: new Date(),
             };
-            await logUserAction(req, "register", `${email} registered`, metadata, checkuser._id);
+            await logUserAction(req, "register", `${email} registered`, metadata, resultcreateuser._id);
         }
 
         // create OTP for verify email Address
@@ -119,12 +119,6 @@ class AuthService {
                             <!-- Divider -->
                             <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 30px 0;"/>
 
-                            <!-- Call to Action -->
-                            <div style="text-align: center;">
-                                <a href="#" style="display: inline-block; background: linear-gradient(135deg, #2563eb, #1e40af); color: #fff; padding: 12px 30px; border-radius: 8px; text-decoration: none; font-weight: 600;">
-                                    Verify My Email
-                                </a>
-                            </div>
                         </div>
 
                         <!-- Footer -->
@@ -157,15 +151,6 @@ class AuthService {
         // genarate token for login user to verfiy otp and token expire after 15min
 
         const token = tokenCreator({ email, otp }, "15m");
-
-        if (req) {
-            const metadata = {
-                ipAddress: req.headers['x-forwarded-for'] || req.socket.remoteAddress,
-                userAgent: req.headers['user-agent'],
-                timestamp: new Date(),
-            };
-            await logUserAction(req, "login_success", `${checkuser.email} Login Success`, metadata, checkuser._id);
-        }
 
         return RegistrationResponseDTO(token)
 

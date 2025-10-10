@@ -22,7 +22,7 @@ const AuthController = {
                 registrationData.email,
                 registrationData.password,
                 req
-            );
+            );          
             res.status(200).json(result)
         }
         catch (err) {
@@ -38,7 +38,7 @@ const AuthController = {
             }
             const { otp } = req.body
 
-            const verifydata = VerifyEmailDTO(otp)
+            const verifydata = VerifyEmailDTO(token, otp)
 
             const result = await AuthService.verifyEmail(
                 token,
