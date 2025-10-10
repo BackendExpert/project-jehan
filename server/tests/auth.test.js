@@ -18,7 +18,7 @@ beforeAll(async () => {
 // after all disconnect database connection
 
 afterAll(async () => {
-    await User.deleteOne({ email: testEmail });
+    // await User.deleteOne({ email: testEmail });
     await mongoose.connection.close()
 })
 
@@ -59,6 +59,7 @@ describe("Auth API Test", () => {
             });
 
         expect(res.body.success).toBe(false)
+        expect(res.body.message).toBe("Email already exists");
     })
 
     // login test case
