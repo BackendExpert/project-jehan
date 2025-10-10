@@ -1,6 +1,6 @@
 const rateLimit = require("express-rate-limit");
-const User = require("../models/User"); // adjust path if needed
-const Role = require("../models/Role");
+const User = require("../models/user.model"); // adjust path if needed
+const Role = require("../models/role.model");
 const jwt = require("jsonwebtoken");
 
 const limiter = rateLimit({
