@@ -1,5 +1,5 @@
 // Create Note
-exports.CreateNoteDTO = (title, content, uploadfile) => ({ title, content, uploadfile })
+exports.CreateNoteDTO = (title, content, uploadfile) => ({ title, content, file: uploadfile });
 exports.CreateNoteResponseDTO = (message = "Note created/uploaded successfully") => ({ success: true, message })
 
 // Update Note

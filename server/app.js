@@ -35,6 +35,9 @@ app.use(morgan("combined"));
 
 // app.use(conditionalRateLimit);
 
+// Serve uploads folder
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 // routes
 // eg: app.use('/api/route_name)
 

@@ -16,6 +16,7 @@ const AdminController = {
             const roleId = req.params.id
 
             const roleData = CreatePremissionDTO(roleId, permisson)
+            console.log(permisson, roleId)
 
             const result = AdminService.CreatePermission(
                 roleData.roleid,

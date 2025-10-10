@@ -5,8 +5,10 @@ const AdminController = require('../contorllers/admin.controller');
 
 const router = express.Router();
 
-router.post('/', auth, checkPermission(['permission:create']), AdminController.createPremission)
+// create new permission
+router.post('/:id', auth, checkPermission(['permission:create']), AdminController.createPremission)
 
+// get all permission
 router.get('/', auth, checkPermission(['permission:getall']), AdminController.getallPermissions)
 
 module.exports = router;
