@@ -133,7 +133,6 @@ class NoteService {
                 user._id
             );
         }
-
         
         return UpdateNoteResponseDTO()
 
