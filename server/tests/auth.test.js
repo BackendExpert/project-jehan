@@ -7,7 +7,6 @@ require("dotenv").config();
 // before all connect database and setup user
 
 // create ueser email 
-
 let testEmail;
 
 beforeAll(async () => {
@@ -21,7 +20,7 @@ afterAll(async () => {
     //uncomment this line if need to check "Registaion Faild for existing user"
     await User.deleteOne({ email: testEmail }); 
 
-    
+
     await mongoose.connection.close()
 })
 
