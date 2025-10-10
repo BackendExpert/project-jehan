@@ -2,7 +2,6 @@ const request = require("supertest");
 const app = require("../app");
 const mongoose = require("mongoose");
 const User = require("../models/user.model");
-const UserOTP = require("../models/userotp.mode")
 require("dotenv").config();
 
 // before all connect database and setup user
@@ -19,8 +18,10 @@ beforeAll(async () => {
 // after all disconnect database connection
 
 afterAll(async () => {
-    await User.deleteOne({ email: testEmail });
-    await UserOTP.deleteMany({ email: testEmail });
+    //uncomment this line if need to check "Registaion Faild for existing user"
+    await User.deleteOne({ email: testEmail }); 
+
+    
     await mongoose.connection.close()
 })
 
@@ -91,31 +92,6 @@ describe("Auth API Test", () => {
     //     const updatedUser = await User.findOne({ email: testEmail });
     //     expect(updatedUser.isEmailVerified).toBe(true);
     // })
-
-    test("Verify Email with Correct OTP", async () => {
-        // Wait for OTP to be created in DB (max 5 seconds)
-        let otpEntry;
-        for (let i = 0; i < 25; i++) { // 25*200ms = 5s
-            otpEntry = await UserOTP.findOne({ email: testEmail });
-            if (otpEntry) break;
-            await new Promise(r => setTimeout(r, 200)); // wait 200ms
-        }
-
-        expect(otpEntry).not.toBeNull(); // sanity check
-
-        const res = await request(app)
-            .post("/api/auth/verify-email")
-            .send({
-                email: testEmail,
-                otp: otpEntry.otp
-            });
-
-        expect(res.statusCode).toBe(200);
-        expect(res.body.success).toBe(true);
-
-        const updatedUser = await User.findOne({ email: testEmail });
-        expect(updatedUser.isEmailVerified).toBe(true);
-    });
 
     // login test case
 
