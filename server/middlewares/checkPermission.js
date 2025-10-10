@@ -1,6 +1,7 @@
 // middlewares/checkPermission.js
-const Role = require("../models/Role");
-const User = require("../models/User");
+const Role = require("../models/role.model");
+const User = require('../models/user.model')
+
 const jwt = require("jsonwebtoken");
 
 /**

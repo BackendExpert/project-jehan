@@ -13,6 +13,7 @@ require("dotenv").config();
 // all routes
 
 const authRoute = require('./routes/auth.route')
+const noteRoute = require('./routes/note.route')
 
 const app = express();
 
@@ -36,7 +37,11 @@ app.use(morgan("combined"));
 // routes
 // eg: app.use('/api/route_name)
 
+// auth route
 app.use('/api/auth', authRoute)
+
+// note route
+app.use('/api/note', noteRoute)
 
 // health check
 app.get("/api", (req, res) => {
