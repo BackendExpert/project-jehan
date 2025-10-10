@@ -8,6 +8,10 @@ const router = express.Router();
 
 router.post('/', auth, checkPermission(['note:create']), upload.single('notefile'), NoteController.createNote)
 
-router.put(':id', auth, checkPermission(['note:update']))
+router.put(':id', auth, checkPermission(['note:update']), upload.single('notefile'), NoteController.updateNote)
+
+router.delete(':id', auth, checkPermission(['note:delete']), NoteController.deleteNote)
+
+
 
 module.exports = router;

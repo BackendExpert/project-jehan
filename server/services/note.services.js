@@ -10,6 +10,9 @@ const {
     CreateNoteResponseDTO,
     UpdateNoteResponseDTO,
     DeleteNoteResponseDTO,
+    GetMyAllNoteResponseDTO,
+    GetAllNoteResponseDTO,
+    GetOneNoteResponseDTO,
 } = require('../dtos/note.dto');
 
 // create class for noteservice
@@ -206,6 +209,38 @@ class NoteService {
 
         return DeleteNoteResponseDTO()
     }
+
+    static async getmyallnotes(token) {
+        // get token and decoded user 
+        let decoded;
+        try {
+            decoded = jwt.verify(token, process.env.JWT_SECRET);
+        } catch (err) {
+            if (err.name === "TokenExpiredError") {
+                throw new Error("Token expired. Please request a new one.");
+            }
+            throw new Error("Invalid token.");
+        }
+
+        const user = await User.findOne({ email: decoded.email });
+        if (!user) throw new Error("User not found");
+
+        const getmynots = await Note.find({ student: user._id })
+
+        return GetMyAllNoteResponseDTO(getmynots)
+    }
+
+    static async getallnotes() {
+        const getallnotes = await Note.find()
+
+        return GetAllNoteResponseDTO(getallnotes)
+    }
+
+    static async getonenote(noteid) {
+        const getonenote = await Note.findById(noteid)
+
+        return GetOneNoteResponseDTO(getonenote)
+    }    
 }
 
 module.exports = NoteService

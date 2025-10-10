@@ -1,5 +1,12 @@
-const { CreateNoteDTO, ErrorResponseDTO, UpdateNoteDTO } = require("../dtos/note.dto");
 const NoteService = require("../services/note.services");
+
+const {
+    CreateNoteDTO,
+    ErrorResponseDTO,
+    UpdateNoteDTO,
+    DeleteNoteDTO,
+    GetOneNoteDTO
+} = require("../dtos/note.dto");
 
 
 const NoteController = {
@@ -60,6 +67,81 @@ const NoteController = {
                 updateNoteDate.uploadfile,
                 token,
                 req
+            )
+
+            res.status(200).json(result)
+        }
+        catch (err) {
+            return res.status(400).json(ErrorResponseDTO(err.message));
+        }
+    },
+
+    deleteNote: async (req, res) => {
+        try {
+            const token = req.header("Authorization")?.replace("Bearer ", "");
+            if (!token) {
+                return res.status(401).json(ErrorResponseDTO("Access denied. No token provided."));
+            }
+            const noteid = req.params.id
+
+            const delteNoteDate = DeleteNoteDTO(noteid)
+
+            const result = await NoteService.DeleteNote(
+                delteNoteDate.noteid,
+                token,
+                req
+            )
+
+            res.status(200).json(result)
+        }
+        catch (err) {
+            return res.status(400).json(ErrorResponseDTO(err.message));
+        }
+    },
+
+    getmyallnotes: async (req, res) => {
+        try {
+            const token = req.header("Authorization")?.replace("Bearer ", "");
+            if (!token) {
+                return res.status(401).json(ErrorResponseDTO("Access denied. No token provided."));
+            }
+
+            const result = await NoteService.getmyallnotes(token)
+            res.status(200).json(result)
+        }
+        catch (err) {
+            return res.status(400).json(ErrorResponseDTO(err.message));
+        }
+    },
+
+    getallnotes: async (req, res) => {
+        try {
+            const token = req.header("Authorization")?.replace("Bearer ", "");
+            if (!token) {
+                return res.status(401).json(ErrorResponseDTO("Access denied. No token provided."));
+            }
+
+            const result = await NoteService.getallnotes(token)
+            res.status(200).json(result)
+        }
+        catch (err) {
+            return res.status(400).json(ErrorResponseDTO(err.message));
+        }
+    },
+
+    getOneNote: async (req, res) => {
+        try {
+            const token = req.header("Authorization")?.replace("Bearer ", "");
+            if (!token) {
+                return res.status(401).json(ErrorResponseDTO("Access denied. No token provided."));
+            }
+
+            const noteid = req.params.id
+
+            const oneNote = GetOneNoteDTO(noteid)
+
+            const result = await NoteService.getonenote(
+                oneNote.noteid
             )
 
             res.status(200).json(result)

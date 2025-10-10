@@ -17,5 +17,9 @@ exports.GetOneNoteResponseDTO = (result, message = "Note retrieved successfully"
 // Get All Notes
 exports.GetAllNoteResponseDTO = (result, message = "All notes retrieved successfully") => ({ success: true, result, message })
 
+// Get my Notes
+exports.GetMyAllNoteResponseDTO = (result, message = "My All notes retrieved successfully") => ({ success: true, result, message })
+
+
 // Error
 exports.ErrorResponseDTO = (message = "Something went wrong") => ({ success: false, message })
