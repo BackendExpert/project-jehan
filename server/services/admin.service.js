@@ -1,6 +1,6 @@
 const User = require('../models/user.model')
 const Role = require('../models/role.model');
-const { CreatePremissionResponseDTO } = require('../dtos/premission.dto');
+const { CreatePremissionResponseDTO, GetAllPermissionsResponseDTO } = require('../dtos/premission.dto');
 
 class AdminService {
     static async CreatePermission(roleid, permission, token, req) {
@@ -24,25 +24,18 @@ class AdminService {
         if (!getrole) throw new Error("Role not found");
 
         // Check which permissions are actually new
-        const existingPermissions = getrole.permissions.map(p => p.toString());
-        const newPermissions = permissionsArray.filter(p => !existingPermissions.includes(p));
-
-        if (newPermissions.length === 0) {
-            // Nothing new to add
-            return {
-                success: false,
-                error: "No new permissions were added."
-            };
+        const existspermission = getrole.permissions.some(p => p.toString() === permission.toString());
+        if (existspermission) {
+            throw new Error("Permission already exists for this role.");
         }
 
-        // Add only the new permissions
-        const permissionCreate = await Role.findByIdAndUpdate(
+        const updatedRole = await Role.findByIdAndUpdate(
             roleid,
-            { $addToSet: { permissions: { $each: newPermissions } } },
+            { $addToSet: { permissions: permission } },
             { new: true, runValidators: true }
         );
 
-        if (permissionCreate && req) {
+        if (updatedRole && req) {
             const metadata = {
                 ipAddress: req.headers['x-forwarded-for'] || req.socket.remoteAddress,
                 userAgent: req.headers['user-agent'],
@@ -59,6 +52,13 @@ class AdminService {
 
         return CreatePremissionResponseDTO()
     }
+
+    static async GetAllPermissions() {
+        const getallroles = await Role.find()
+
+        return GetAllPermissionsResponseDTO(getallroles)
+    }
+   
 }
 
 module.exports = AdminService
