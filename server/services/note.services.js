@@ -40,7 +40,7 @@ class NoteService {
             student: user._id,
             title: title,
             content: content,
-            uploadfile: uploadfile
+            file: uploadfile
         })
 
         const reusltnewNote = await newNote.save()
@@ -55,8 +55,8 @@ class NoteService {
                 };
                 await logUserAction(
                     req,
-                    "create_attendance",
-                    `${decoded.email} attendance added`,
+                    "create_note",
+                    `${decoded.email} Note Created`,
                     metadata,
                     user._id
                 );
@@ -117,7 +117,7 @@ class NoteService {
         // Update only provided fields
         if (title !== undefined && title.trim() !== "") existingNote.title = title;
         if (content !== undefined && content.trim() !== "") existingNote.content = content;
-        if (uploadfile !== undefined && uploadfile !== "") existingNote.uploadfile = uploadfile;
+        if (uploadfile !== undefined && uploadfile !== "") existingNote.file = uploadfile;
 
 
         const updatedNote = await existingNote.save();
@@ -171,7 +171,7 @@ class NoteService {
         const isOwner = existingNote.student.toString() === user._id.toString();
         const isAdmin = adminget && user.role && user.role.toString() === adminget._id.toString();
 
-        if (!isOwner || !isAdmin) {
+        if (!isOwner && !isAdmin) {
             if (req) {
                 const metadata = {
                     ipAddress: req.headers["x-forwarded-for"] || req.socket.remoteAddress,

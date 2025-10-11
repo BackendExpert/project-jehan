@@ -15,13 +15,15 @@ router.put('/:id', auth, checkPermission(['note:update']), upload.single('notefi
 // delete note
 router.delete('/:id', auth, checkPermission(['note:delete']), NoteController.deleteNote)
 
+// get my notes -> this is for when current login student can access only his/her notes
+router.get('/my-notes', auth, checkPermission(['note:mynotes']), NoteController.getmyallnotes)
+
 // get all notes
 router.get('/', auth, checkPermission(['note:getall']), NoteController.getallnotes)
 
 // get one note
 router.get('/:id', auth, checkPermission(['note:getone']), NoteController.getOneNote)
 
-// get my notes -> this is for when current login student can access only his/her notes
-router.get('/my-notes', auth, checkPermission(['note:mynotes']), NoteController.getmyallnotes)
+
 
 module.exports = router;

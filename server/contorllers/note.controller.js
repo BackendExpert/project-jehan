@@ -29,7 +29,7 @@ const NoteController = {
             const result = await NoteService.CreateNote(
                 notedata.title,
                 notedata.content,
-                notedata.uploadfile,
+                notedata.file,
                 token,
                 req
             )
