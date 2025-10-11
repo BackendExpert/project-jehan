@@ -17,7 +17,7 @@ beforeAll(async () => {
 // after all disconnect database connection
 
 afterAll(async () => {
-    //uncomment this line if need to check "Registaion Faild for existing user"
+    //comment this line if need to check "Registaion Faild for existing user"
     await User.deleteOne({ email: testEmail }); 
 
 
