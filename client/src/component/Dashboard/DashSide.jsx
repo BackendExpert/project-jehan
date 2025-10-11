@@ -18,8 +18,8 @@ import {
 import { FaClipboardList, FaBalanceScale } from "react-icons/fa";
 import defultImg from "../../assets/user.png";
 import { useAuth } from "../../context/AuthContext";
-import uoplogo from "../../assets/uoplogo.png";
-import API from "../../services/api";
+import API from "../../service/api";
+
 
 
 
@@ -121,7 +121,6 @@ const DashSide = ({ closeSidebar }) => {
         <aside className="h-full flex flex-col bg-white">
             {/* Header */}
             <div className="flex flex-col items-center py-6 border-b border-purple-200">
-                <img src={uoplogo} alt="UOP Logo" className="h-14 w-auto" />
                 <h1 className="text-sm font-extrabold text-purple-700 mt-2 tracking-wide">
                     M@E System
                 </h1>

@@ -3,7 +3,8 @@ import { Menu, Search, Bell, MessageCircle, ChevronDown, User, Settings, LogOut 
 import defultUser from '../../assets/user.png'
 import { useAuth } from '../../context/AuthContext'
 import { Link } from 'react-router-dom'
-import API from '../../services/api'
+import API from '../../service/api'
+
 
 const DashNav = ({ onMenuClick }) => {
     const { auth, logout } = useAuth()
