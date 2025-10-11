@@ -1,48 +1,98 @@
-import React from 'react'
+import React from "react";
+import { motion } from "framer-motion";
+import { useAuth } from "../../context/AuthContext";
 
 const HeroSection = () => {
+    const auth = useAuth()
     return (
-        <div>
-            <section className="relative min-h-screen flex items-center justify-center text-white px-4">
-                {/* Background Image */}
-                <div
-                    className="absolute inset-0 bg-cover bg-center"
-                    style={{
-                        backgroundImage: `url('https://wallpapercave.com/wp/wp13669855.jpg')`,
-                    }}
-                >
-                    {/* Mobile background using media query */}
-                    <div
-                        className="absolute inset-0 bg-cover bg-center md:hidden"
-                        style={{
-                            backgroundImage: `url('https://wallpapercave.com/wp/wp15376630.jpg')`,
-                        }}
-                    />
-                </div>
-                {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-r from-pink-600/70 to-red-600/70" />
+        <section className="relative min-h-screen flex items-center justify-center overflow-hidden text-white bg-neutral-900">
+            {/* Background Image - Desktop */}
+            <div
+                className="absolute inset-0 bg-cover bg-center hidden md:block"
+                style={{
+                    backgroundImage:
+                        "url('https://wallpapercave.com/wp/wp13669855.jpg')",
+                }}
+            />
 
-                {/* Content */}
-                <div className="relative z-10 max-w-4xl text-center">
-                    <h1 className="text-5xl md:text-6xl font-bold mb-4 drop-shadow-lg">
-                        Find Your Perfect Match ❤️
-                    </h1>
-                    <p className="text-xl md:text-2xl mb-8 drop-shadow-md">
-                        Join our vibrant dating community and meet someone special today!
-                    </p>
-                    <div>
-                        <button className="bg-white text-pink-600 font-semibold px-6 py-3 rounded-full hover:bg-pink-100 transition">
-                            Get Started
-                        </button>
-                        <button className="ml-4 border border-white px-6 py-3 rounded-full hover:bg-white hover:text-pink-600 transition">
+            {/* Background Image - Mobile */}
+            <div
+                className="absolute inset-0 bg-cover bg-center md:hidden"
+                style={{
+                    backgroundImage:
+                        "url('https://wallpapercave.com/wp/wp15376630.jpg')",
+                }}
+            />
+
+            {/* Neutral Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-zinc-900/90 backdrop-blur-sm" />
+
+            {/* Subtle Glow Elements */}
+            <div className="absolute -top-32 left-10 w-72 h-72 bg-white/10 rounded-full blur-3xl animate-pulse" />
+            <div className="absolute bottom-10 right-10 w-64 h-64 bg-gray-500/10 rounded-full blur-3xl animate-pulse" />
+
+            {/* Content */}
+            <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1 }}
+                className="relative z-10 text-center px-6 max-w-4xl"
+            >
+                <motion.h1
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2, duration: 1 }}
+                    className="text-5xl md:text-6xl font-bold mb-6 leading-tight drop-shadow-lg"
+                >
+                    Organize Your Notes Effortlessly 🗒️
+                </motion.h1>
+
+                <motion.p
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4, duration: 1 }}
+                    className="text-lg md:text-2xl text-gray-200 mb-10"
+                >
+                    Create, edit, and manage all your study notes in one secure place.
+                </motion.p>
+
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.6, duration: 1 }}
+                    className="flex flex-col sm:flex-row justify-center gap-4"
+                >
+                    <div className="">
+                        {
+                            auth.user ?
+                                <a href="/">
+                                    <button className="bg-white text-black font-semibold px-8 py-3 rounded-full shadow-lg hover:scale-105 hover:bg-gray-200 transition-transform duration-300">
+                                        Get Started
+                                    </button>
+                                </a>
+                                :
+                                <a href="/login">
+                                    <button className="bg-white text-black font-semibold px-8 py-3 rounded-full shadow-lg hover:scale-105 hover:bg-gray-200 transition-transform duration-300">
+                                        Get Started
+                                    </button>
+                                </a>
+                        }
+                    </div>
+
+
+                    <a href="/how-to-use">
+                        <button className="border border-white/80 px-8 py-3 rounded-full text-white hover:bg-white hover:text-black transition duration-300">
                             Learn More
                         </button>
-                    </div>
-                </div>
-            </section>
+                    </a>
 
-        </div>
-    )
-}
+                </motion.div>
+            </motion.div>
 
-export default HeroSection
+            {/* Bottom Fade */}
+            <div className="absolute bottom-0 w-full h-40 bg-gradient-to-t from-black to-transparent" />
+        </section>
+    );
+};
+
+export default HeroSection;
