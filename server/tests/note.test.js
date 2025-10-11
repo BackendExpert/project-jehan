@@ -77,7 +77,7 @@ describe("Note API test", () => {
     })
 
     // test case for update note
-    test("Update note and return message", async () => {
+    test("Update note by id and return message", async () => {
         const res = await request(app)
             .put(`/api/note/${noteid}`)
             .set("Authorization", `Bearer ${token}`)
@@ -91,6 +91,88 @@ describe("Note API test", () => {
         const updatedNote = await Note.findById(noteid);
         expect(updatedNote.title).toBe("Updated Note Title");
     })
+
+    // test case of get my all notes
+    // for this need token
+
+    test("✅ Get my notes", async () => {
+        const res = await request(app)
+            .get("/api/note/my-notes")
+            .set("Authorization", `Bearer ${token}`);
+
+        expect(res.statusCode).toBe(200);
+        expect(res.body.success).toBe(true);
+        expect(res.body.data).toBeInstanceOf(Array);
+        expect(res.body.data.length).toBeGreaterThan(0);
+    });
+
+    test("Get one note by ID", async () => {
+        const res = await request(app)
+            .get(`/api/note/${noteid}`)
+            .set("Authorization", `Bearer ${token}`);
+
+        expect(res.statusCode).toBe(200);
+        expect(res.body.success).toBe(true);
+        expect(res.body.data._id).toBe(noteid.toString());
+    });
+
+    test("Delete existing note", async () => {
+        const res = await request(app)
+            .delete(`/api/note/${noteid}`)
+            .set("Authorization", `Bearer ${token}`);
+
+        expect(res.statusCode).toBe(200);
+        expect(res.body.success).toBe(true);
+
+        const deletedNote = await Note.findById(noteid);
+        expect(deletedNote).toBeNull();
+    });
+
+    // test case for create note without token
+    test("Fail to create note without token", async () => {
+        const res = await request(app)
+            .post("/api/note")
+            .send({ title: "No Token", content: "Should fail" });
+
+        expect(res.statusCode).toBe(401);
+        expect(res.body.message).toMatch(/no token/i);
+    });
+
+    // test case for not permissions
+    test("Fail with invalid permission (no note:create)", async () => {
+        // create role without permissions
+        const limitedRole = await Role.create({
+            name: "viewer",
+            permissions: ["note:getone"],
+        });
+
+        const limitedUser = await User.create({
+            username: "limited",
+            email: "limited@example.com",
+            password: "12345",
+            role: limitedRole._id,
+        });
+
+        const limitedToken = jwt.sign(
+            {
+                id: limitedUser._id,
+                email: limitedUser.email,
+                role: limitedRole.name,
+            },
+            process.env.JWT_SECRET,
+            { expiresIn: "1h" }
+        );
+
+        const res = await request(app)
+            .post("/api/note")
+            .set("Authorization", `Bearer ${limitedToken}`)
+            .field("title", "Unauthorized Note")
+            .field("content", "This should fail.");
+
+        expect(res.statusCode).toBe(403);
+        expect(res.body.message).toMatch(/insufficient permissions/i);
+    });
+
 })
 
 

@@ -45,19 +45,20 @@ describe("Auth API Test", () => {
                 email: testEmail,
                 password: "Password123!",
                 role: getstd._id,
+                isEmailVerified: true,
+                isActive: true
             });
 
         // manually verify user for login
 
         console.log("🧩 Registration Response:", res.body);
 
-        const user = await User.findOne({ email: testEmail });
-        if (user && !user.isEmailVerified) {
-            user.isEmailVerified = true;
-            user.isActive = true;
-            user.isEmailVerified = true;
-            await user.save();
-        }
+        // const user = await User.findOne({ email: testEmail });
+        // if (user && !user.isEmailVerified) {
+        //     user.isEmailVerified = true;
+        //     user.isActive = true;
+        //     await user.save();
+        // }
 
         expect(res.statusCode).toBe(200);
         expect(res.body.success).toBe(true);
