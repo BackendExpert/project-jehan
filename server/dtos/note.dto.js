@@ -3,7 +3,7 @@ exports.CreateNoteDTO = (title, content, uploadfile) => ({ title, content, file:
 exports.CreateNoteResponseDTO = (message = "Note created/uploaded successfully") => ({ success: true, message })
 
 // Update Note
-exports.UpdateNoteDTO = (noteid, title, content, uploadfile) => ({ noteid, title, content, uploadfile })
+exports.UpdateNoteDTO = (noteid, title, content, uploadfile) => ({ noteid, title, content, file: uploadfile })
 exports.UpdateNoteResponseDTO = (message = "Note updated successfully") => ({ success: true, message })
 
 // Delete Note

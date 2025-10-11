@@ -17,14 +17,14 @@ const NoteController = {
                 return res.status(401).json(ErrorResponseDTO("Access denied. No token provided."));
             }
 
-            const {
-                title,
-                content,
-            } = req.body
+            const { title, content } = req.body;
 
-            const uploadfile = req.file ? req.file.filename : undefined;
+            if (!req.file) {
+                return res.status(400).json(ErrorResponseDTO("File is required"));
+            }
 
-            const notedata = CreateNoteDTO(title, content, uploadfile)
+            const uploadfile = req.file.filename;
+            const notedata = CreateNoteDTO(title, content, uploadfile);
 
             const result = await NoteService.CreateNote(
                 notedata.title,
@@ -32,12 +32,10 @@ const NoteController = {
                 notedata.file,
                 token,
                 req
-            )
+            );
 
-            res.status(200).json(result)
-
-        }
-        catch (err) {
+            res.status(200).json(result);
+        } catch (err) {
             return res.status(400).json(ErrorResponseDTO(err.message));
         }
     },
@@ -64,7 +62,7 @@ const NoteController = {
                 updateNoteDate.noteid,
                 updateNoteDate.title,
                 updateNoteDate.content,
-                updateNoteDate.uploadfile,
+                updateNoteDate.file,
                 token,
                 req
             )
