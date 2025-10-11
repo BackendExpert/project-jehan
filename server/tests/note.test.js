@@ -32,6 +32,7 @@ beforeAll(async () => {
         password: "hashedpassword123",
         role: stdrole._id,
         isActive: true,
+        isEmailVerified: true,
     })
 
     // create JWT token becuse to access note route need token becuse auth middleware checks the token before route works
@@ -73,6 +74,22 @@ describe("Note API test", () => {
         expect(note.student.toString()).toBe(user._id.toString());
 
         noteid = note._id;
+    })
+
+    // test case for update note
+    test("Update note and return message", async () => {
+        const res = await request(app)
+            .put(`/api/note/${noteid}`)
+            .set("Authorization", `Bearer ${token}`)
+            .field("title", "Updated Note Title")
+            .field("content", "Updated content here.");
+
+        expect(res.statusCode).toBe(200);
+        expect(res.body.success).toBe(true);
+
+        // after update display note updated title
+        const updatedNote = await Note.findById(noteid);
+        expect(updatedNote.title).toBe("Updated Note Title");
     })
 })
 

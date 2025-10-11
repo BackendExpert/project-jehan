@@ -55,6 +55,7 @@ describe("Auth API Test", () => {
         if (user && !user.isEmailVerified) {
             user.isEmailVerified = true;
             user.isActive = true;
+            user.isEmailVerified = true;
             await user.save();
         }
 
