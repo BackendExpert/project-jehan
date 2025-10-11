@@ -2,25 +2,31 @@ const request = require("supertest");
 const app = require("../app");
 const mongoose = require("mongoose");
 const User = require("../models/user.model");
+const Role = require("../models/role.model")
 require("dotenv").config();
 
 // before all connect database and setup user
 
 // create ueser email 
 let testEmail;
+let getstd;
 
 beforeAll(async () => {
     await mongoose.connect(process.env.MONGO_URI);
     testEmail = `testuser${Date.now()}@example.com`;
+
+    getstd = await Role.findOne({ name: "student" })
+
+    if (!getstd) {
+        throw new Error("❌ Student role not found — please seed roles before running tests.");
+    }
 });
 
 // after all disconnect database connection
 
 afterAll(async () => {
-    //uncomment this line if need to check "Registaion Faild for existing user"
-    await User.deleteOne({ email: testEmail }); 
-
-
+    //comment this line if need to check "Registaion Faild for existing user"
+    await User.deleteOne({ email: testEmail });
     await mongoose.connection.close()
 })
 
@@ -31,21 +37,28 @@ describe("Auth API Test", () => {
 
     // registation test case
     test("Registaion Create user and return token", async () => {
+
         const res = await request(app)
             .post("/api/auth/registation")
             .send({
                 username: "TestUser",
                 email: testEmail,
-                password: "Password123!"
+                password: "Password123!",
+                role: getstd._id,
+                isEmailVerified: true,
+                isActive: true
             });
 
         // manually verify user for login
 
-        const user = await User.findOne({ email: testEmail });
-        if (user && !user.isEmailVerified) {
-            user.isEmailVerified = true;
-            await user.save();
-        }
+        console.log("🧩 Registration Response:", res.body);
+
+        // const user = await User.findOne({ email: testEmail });
+        // if (user && !user.isEmailVerified) {
+        //     user.isEmailVerified = true;
+        //     user.isActive = true;
+        //     await user.save();
+        // }
 
         expect(res.statusCode).toBe(200);
         expect(res.body.success).toBe(true);
@@ -63,7 +76,8 @@ describe("Auth API Test", () => {
             .send({
                 username: "TestUser",
                 email: testEmail,
-                password: "Password123!"
+                password: "Password123!",
+                role: getstd._id,
             });
 
         if (res.body.message) {
@@ -101,6 +115,8 @@ describe("Auth API Test", () => {
                 email: testEmail,
                 password: "Password123!"
             });
+
+        console.log("🔐 Login Response:", res.body);
 
         expect(res.statusCode).toBe(200);
         expect(res.body.success).toBe(true);
