@@ -15,6 +15,8 @@ const Login = () => {
         email: "",
         password: "",
     });
+    const [errorMessage, setErrorMessage] = useState("");
+
 
     const { login } = useAuth();
     const navigate = useNavigate();
@@ -37,10 +39,12 @@ const Login = () => {
                     navigate('/')
                 }
             } else {
-                alert(res.data.message);
+                setErrorMessage(res.data.error);
             }
         } catch (err) {
-            console.log(err);
+            setErrorMessage(
+                err.res?.data?.error || "Server error. Please try again later."
+            );
         }
     };
 
@@ -83,6 +87,11 @@ const Login = () => {
                     <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center md:text-left">
                         Login Here
                     </h2>
+                    {errorMessage && (
+                        <div className="mb-4">
+                            <ShowError error_message={errorMessage} />
+                        </div>
+                    )}
 
                     <form onSubmit={handleSubmit}>
                         <DefaultInput

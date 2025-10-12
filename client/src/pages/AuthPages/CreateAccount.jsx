@@ -25,13 +25,13 @@ const CreateAccount = () => {
 
         try {
             const res = await API.post('/auth/registation', values)
-            if (res.data.success = true) {
+            if (res.data.success === true) {
                 alert(res.data.message)
                 handleEmailVerificationToken(res.data.token) //storre token for verify email
                 navigate('/verify-email')
             }
             else {
-                setErrorMessage(res.data.error || "Something went wrong!");
+                setErrorMessage(res.data.error);
             }
         }
         catch (err) {

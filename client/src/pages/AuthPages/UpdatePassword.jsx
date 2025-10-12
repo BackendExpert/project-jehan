@@ -30,7 +30,7 @@ const UpdatePassword = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const { newpass, confirmpass } = values;
+        const { newpassword, confirmnewpassword } = values;
 
         if (newpassword !== confirmnewpassword) {
             alert("Passwords Not Match");
@@ -40,7 +40,7 @@ const UpdatePassword = () => {
         try {
             const res = await API.post(
                 '/auth/update-password',
-                { newpass }, 
+                { newpassword }, 
                 {
                     headers: { Authorization: `Bearer ${token}` }
                 }
@@ -49,7 +49,7 @@ const UpdatePassword = () => {
             if (res.data.success === true || res.data.success === "true") {
                 alert(res.data.message);
                 localStorage.clear();
-                navigate('/');
+                navigate('/login');
             } else {
                 setErrorMessage(res.data.error || "Something went wrong!");
             }

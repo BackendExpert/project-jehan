@@ -23,13 +23,12 @@ const ForgetPassword = () => {
         e.preventDefault();
         try {
             const res = await API.post('/auth/forget-password', values);
-            if (res.data.success === true) {
+            if (res.data?.token && res.data?.message) {
                 alert(res.data.message);
                 handleEmailVerificationToken(res.data.token);
                 navigate('/verify-otp');
             } else {
                 setErrorMessage(res.data.error || "Something went wrong!");
-
             }
         } catch (err) {
             setErrorMessage(
