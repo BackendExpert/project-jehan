@@ -89,18 +89,22 @@ const StdDash = () => {
                 </div>
             </motion.div>
             <div className="">
-                <div className="flex">
+                <div className="md:flex">
                     <div className="">
-                        <DefaultButton
-                            type="button"
-                            label="Manage My Notes"
-                        />
+                        <a href="/my-account/manage-notes">
+                            <DefaultButton
+                                type="button"
+                                label="Manage My Notes"
+                            />
+                        </a>
                     </div>
                     <div className="md:ml-4">
-                        <DefaultButton
-                            type="button"
-                            label="Update My Profile"
-                        />
+                        <a href="">
+                            <DefaultButton
+                                type="button"
+                                label="Update My Profile"
+                            />
+                        </a>
                     </div>
                 </div>
             </div>

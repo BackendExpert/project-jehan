@@ -15,6 +15,7 @@ import StudentDashboard from '../layouts/StudentDashboard'
 import StdDash from '../pages/StudentDashboard/StdDash'
 import Notifications from '../pages/Dashboard/Notifications'
 import DashError from '../component/Dashboard/DashError'
+import ManageNotes from '../pages/StudentDashboard/ManageNotes'
 
 function App() {
     return (
@@ -34,13 +35,15 @@ function App() {
 
                 {/* for admin Dashboard */}
                 <Route path='/Dashboard' element={<PrivateRoute roles={['admin']}><Dashboard /></PrivateRoute>} >
-                    <Route path='*' element={<PrivateRoute roles={['admin']}><DashError /></PrivateRoute>} />                    
+                    <Route path='*' element={<PrivateRoute roles={['admin']}><DashError /></PrivateRoute>} />
                     <Route path='notifications' element={<PrivateRoute roles={['admin']}><Notifications /></PrivateRoute>} />
                 </Route>
 
                 {/* for student dashboard */}
                 <Route path='/my-account' element={<PrivateRoute roles={['admin', 'student']}><StudentDashboard /></PrivateRoute>}>
+                    <Route path='*' element={<PrivateRoute roles={['admin', 'student']}><DashError /></PrivateRoute>} />
                     <Route index element={<PrivateRoute roles={['admin', 'student']}><StdDash /></PrivateRoute>} />
+                    <Route path='manage-notes' element={<PrivateRoute roles={['admin', 'student']}><ManageNotes /></PrivateRoute>} />
                 </Route>
             </Routes>
 
