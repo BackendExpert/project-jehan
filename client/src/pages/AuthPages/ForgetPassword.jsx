@@ -2,8 +2,17 @@ import React from "react";
 import useForm from "../../hooks/useForm";
 import DefaultInput from "../../component/Form/DefaultInput";
 import DefaultButton from "../../component/Buttons/DefaultButton";
+import { useEffect } from "react";
+import { useState } from "react";
+import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+
 
 const ForgetPassword = () => {
+    const { handleEmailVerificationToken } = useAuth();
+    const navigate = useNavigate();
+    const token = localStorage.getItem('forgetpass')
+    
     const { values, handleChange } = useForm({
         email: "",
     });
