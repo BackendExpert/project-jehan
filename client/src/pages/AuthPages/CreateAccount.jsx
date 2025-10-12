@@ -6,6 +6,7 @@ import API from "../../service/api";
 import ShowError from "../../component/ErrorShow/ShowError";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { useState } from "react";
 
 
 const CreateAccount = () => {
@@ -23,10 +24,10 @@ const CreateAccount = () => {
         e.preventDefault();
 
         try {
-            const res = await API.post('/auth/registation')
+            const res = await API.post('/auth/registation', values)
             if (res.data.success = true) {
                 alert(res.data.message)
-                handleEmailVerificationToken(res.data.token)
+                handleEmailVerificationToken(res.data.token) //storre token for verify email
                 navigate('/verify-email')
             }
             else {
@@ -112,10 +113,12 @@ const CreateAccount = () => {
 
                         <p className="mt-4">Already have Account ?</p>
                         <div className="">
-                            <DefaultButton
-                                type="button"
-                                label="Login"
-                            />
+                            <a href="/login">
+                                <DefaultButton
+                                    type="button"
+                                    label="Create Account"
+                                />
+                            </a>
                         </div>
                     </div>
                 </div>

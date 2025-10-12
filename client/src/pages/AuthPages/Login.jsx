@@ -38,10 +38,12 @@ const Login = () => {
                         </p>
 
                         <div className="">
-                            <DefaultButton 
-                                type="button"
-                                label="Create Account"
-                            />
+                            <a href="/create-account">
+                                <DefaultButton
+                                    type="button"
+                                    label="Create Account"
+                                />
+                            </a>
                         </div>
                     </div>
                 </div>
