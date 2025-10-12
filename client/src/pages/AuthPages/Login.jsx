@@ -75,6 +75,11 @@ const Login = () => {
 
                         <DefaultButton label="Login" type="submit" />
                     </form>
+                    <div className="">
+                        <a href="/forget-password" className="text-pink-500 font-semibold mt-4 hover:underline">
+                            Forget Password ?
+                        </a>
+                    </div>
                 </div>
 
                 {/* Right Image Section */}

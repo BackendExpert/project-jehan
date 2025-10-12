@@ -6,6 +6,9 @@ import TestInputs from '../pages/testingPages/TestInputs'
 import HomePage from '../pages/Welcome/HomePage'
 import DefultError from '../component/Errors/DefultError'
 import CreateAccount from '../pages/AuthPages/CreateAccount'
+import Login from '../pages/AuthPages/Login'
+import ForgetPassword from '../pages/AuthPages/ForgetPassword'
+import VerifyOTP from '../pages/AuthPages/VerifyOTP'
 
 function App() {
     return (
@@ -16,6 +19,9 @@ function App() {
                     <Route index element={<HomePage /> } />
                     <Route path='/test' element={<TestInputs />} />
                     <Route path='/create-account' element={<CreateAccount /> } />
+                    <Route path='/login' element={<Login /> } />
+                    <Route path='/forget-password' element={<ForgetPassword /> } />
+                    <Route path='/verify-otp' element={<VerifyOTP /> } />
                 </Route>
             </Routes>
 
