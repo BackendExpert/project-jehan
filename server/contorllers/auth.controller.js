@@ -3,10 +3,15 @@ const {
     RegistrationDTO,
     VerifyEmailDTO,
     LoginDTO,
+    ForgetPasswordDTO,
+    VerifyOTPDTO,
+    UpdatePasswordDTO
 } = require("../dtos/auth.dto");
 
 
 const AuthController = {
+
+    // registation
     registaion: async (req, res) => {
         try {
             const {
@@ -22,7 +27,7 @@ const AuthController = {
                 registrationData.email,
                 registrationData.password,
                 req
-            );          
+            );
             res.status(200).json(result)
         }
         catch (err) {
@@ -30,6 +35,7 @@ const AuthController = {
         }
     },
 
+    // verify email
     verifyEmail: async (req, res) => {
         try {
             const token = req.header("Authorization")?.replace("Bearer ", "");
@@ -52,6 +58,7 @@ const AuthController = {
         }
     },
 
+    // login
     login: async (req, res) => {
         try {
             const {
@@ -73,6 +80,7 @@ const AuthController = {
         }
     },
 
+    // logout
     logout: async (req, res) => {
         try {
             const token = req.header("Authorization")?.replace("Bearer ", "");
@@ -89,6 +97,77 @@ const AuthController = {
             res.json({ success: false, error: err.message })
         }
     },
+
+    // forget password
+    forgetPassword: async (req, res) => {
+        try {
+            const { email } = req.body
+
+            const forgetpass = ForgetPasswordDTO(email)
+
+            const result = await AuthService.ForgetPassword(
+                forgetpass.email,
+                req
+            )
+            res.status(200).json(result)
+        }
+        catch (err) {
+            res.json({ success: false, error: err.message })
+        }
+    },
+
+    // verify otp
+    verifyotp: async (req, res) => {
+        try {
+            const token = req.header("Authorization")?.replace("Bearer ", "");
+            if (!token) {
+                return res.status(401).json({
+                    success: false,
+                    message: "Access denied. No token provided.",
+                });
+            }
+
+            const { otp } = req.body
+
+            const otpcheckdto = VerifyOTPDTO(otp)
+
+            const result = await AuthService.CheckandVerifyOTP(
+                otpcheckdto.otp,
+                req
+            )
+            res.status(200).json(result)
+        }
+        catch (err) {
+            res.json({ success: false, error: err.message })
+        }
+    },
+
+    // update password
+    updatePassword: async (req, res) => {
+        try {
+            const token = req.header("Authorization")?.replace("Bearer ", "");
+            if (!token) {
+                return res.status(401).json({
+                    success: false,
+                    message: "Access denied. No token provided.",
+                });
+            }
+
+            const { newpassword } = req.body
+
+            const passwordDto = UpdatePasswordDTO(newpassword)
+
+            const result = await AuthService.UpdatePassword(
+                passwordDto.newpassword,
+                req
+            )
+            res.status(200).json(result)
+
+        }
+        catch (err) {
+            res.json({ success: false, error: err.message })
+        }
+    }
 };
 
 module.exports = AuthController;
