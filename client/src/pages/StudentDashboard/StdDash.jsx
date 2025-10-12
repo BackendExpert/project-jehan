@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { FaClipboardList } from "react-icons/fa";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
+import DefaultButton from "../../component/Buttons/DefaultButton";
 
 const notesData = [
     { month: "Jan", notes: 5 },
@@ -62,7 +63,7 @@ const StdDash = () => {
                 transition={{ delay: 0.5, duration: 0.6 }}
             >
                 <h2 className="text-lg font-semibold text-purple-700 mb-4">Notes Added per Month</h2>
-                <div className="h-56">
+                <div className="md:h-56 h-auto">
                     <ResponsiveContainer width="100%" height="100%">
                         <LineChart data={notesData}>
                             <XAxis dataKey="month" stroke="#7c3aed" />
@@ -87,6 +88,22 @@ const StdDash = () => {
                     </ResponsiveContainer>
                 </div>
             </motion.div>
+            <div className="">
+                <div className="flex">
+                    <div className="">
+                        <DefaultButton
+                            type="button"
+                            label="Manage My Notes"
+                        />
+                    </div>
+                    <div className="md:ml-4">
+                        <DefaultButton
+                            type="button"
+                            label="Update My Profile"
+                        />
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };
