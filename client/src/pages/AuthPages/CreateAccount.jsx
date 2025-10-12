@@ -2,17 +2,42 @@ import React from "react";
 import useForm from "../../hooks/useForm";
 import DefaultInput from "../../component/Form/DefaultInput";
 import DefaultButton from "../../component/Buttons/DefaultButton";
+import API from "../../service/api";
+import ShowError from "../../component/ErrorShow/ShowError";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+
 
 const CreateAccount = () => {
+    const { handleEmailVerificationToken } = useAuth();
+    const navigate = useNavigate();
     const { values, handleChange } = useForm({
         username: "",
         email: "",
         password: "",
     });
 
-    const handleSubmit = (e) => {
+    const [errorMessage, setErrorMessage] = useState("");
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Form submitted:", values);
+
+        try {
+            const res = await API.post('/auth/registation')
+            if (res.data.success = true) {
+                alert(res.data.message)
+                handleEmailVerificationToken(res.data.token)
+                navigate('/verify-email')
+            }
+            else {
+                setErrorMessage(res.data.error || "Something went wrong!");
+            }
+        }
+        catch (err) {
+            setErrorMessage(
+                err.response?.data?.error || "Server error. Please try again later."
+            );
+        }
     };
 
     return (
@@ -23,6 +48,12 @@ const CreateAccount = () => {
                     <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center md:text-left">
                         Create Your Account
                     </h2>
+
+                    {errorMessage && (
+                        <div className="mb-4">
+                            <ShowError error_message={errorMessage} />
+                        </div>
+                    )}
 
                     <form onSubmit={handleSubmit}>
                         <DefaultInput
@@ -78,7 +109,7 @@ const CreateAccount = () => {
                             Join the <strong>Student Note Management System</strong> and manage
                             your academic notes and materials with ease and efficiency.
                         </p>
-                        
+
                         <p className="mt-4">Already have Account ?</p>
                         <div className="">
                             <DefaultButton
