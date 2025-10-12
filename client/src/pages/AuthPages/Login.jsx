@@ -8,7 +8,7 @@ import ShowError from "../../component/ErrorShow/ShowError";
 import { useNavigate } from "react-router-dom";
 import API from "../../service/api";
 import { useAuth } from "../../context/AuthContext";
-
+import { jwtDecode } from "jwt-decode";
 
 const Login = () => {
     const { values, handleChange } = useForm({
