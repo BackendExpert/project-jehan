@@ -47,7 +47,7 @@ exports.LoginResponseDTO = (token, user) => ({
 // forget password DTO
 exports.ForgetPasswordDTO = (email) => ({email})
 
-exports.ForgetPasswordResponseDTO = (token, message = "Email Verification Success, Verification email sent.") => ({token, token})
+exports.ForgetPasswordResponseDTO = (token, message = "Email Verification Success, Verification email sent.") => ({token, message})
 
 
 // verify OTP

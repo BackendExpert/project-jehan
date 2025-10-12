@@ -14,7 +14,10 @@ const {
     RegistrationResponseDTO,
     VerifyEmailResponseDTO,
     LoginResponseDTO,
-    LogoutResponseDTO
+    LogoutResponseDTO,
+    ForgetPasswordResponseDTO,
+    VerifyOTPResponseDTO,
+    UpdatePasswordResponseDTO
 } = require('../dtos/auth.dto')
 
 const PASSWORD_SULT = 10
@@ -313,6 +316,214 @@ class AuthService {
         await logUserAction(req, "logout", `User ${user.email} logged out`, metadata, userId);
 
         return LogoutResponseDTO()
+    }
+
+
+
+    // -------------------------- Forget Password ----------------------------------------------
+
+    static async ForgetPassword(email, req) {
+        const existinguser = await User.findOne({ email: email })
+
+        // check user is already in system by given email address
+        if (!existinguser) {
+            throw new Error("User cannot found you given Email Address")
+        }
+
+        // check email is verifed
+        if (existinguser.isEmailVerified === false) {
+            throw new Error("Your email is not Verify...")
+        }
+
+        // check accout is active
+        if (existinguser.isActive === false) {
+            throw new Error("Your Account is not Active...")
+        }
+
+        // check user already got otp
+        const checkotp = await UserOTP.findOne({ email });
+        if (checkotp) {
+            throw new Error("User already requested OTP, please wait and try again later");
+        }
+
+        // genarate OTP using crypto
+        function generateOTP(length = 8) {
+            return crypto
+                .randomBytes(length)
+                .toString("base64")
+                .replace(/[^a-zA-Z0-9]/g, "")
+                .slice(0, length);
+        }
+
+        const otp = generateOTP();
+
+        // send email with otp
+        await sendEmail({
+            to: email,
+            subject: "Password Reset Request - Student Note Management System",
+            html: `
+                <div style="font-family: 'Segoe UI', Arial, sans-serif; background-color: #f4f6f8; padding: 40px 0;">
+                    <div style="max-width: 600px; margin: auto; background: #ffffff; border-radius: 14px; overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,0.08);">
+                        
+                        <!-- Header -->
+                        <div style="background: linear-gradient(135deg, #3b82f6, #1d4ed8); padding: 25px; text-align: center;">
+                            <h1 style="color: #fff; margin: 0; font-size: 26px; font-weight: 700;">Student Note Management System</h1>
+                        </div>
+
+                        <!-- Body -->
+                        <div style="padding: 35px; color: #333;">
+                            <h2 style="font-size: 22px; margin-bottom: 10px; color: #1e3a8a;">Hello ${user.username},</h2>
+
+                            <p style="font-size: 16px; line-height: 1.6; margin-bottom: 20px; color: #374151;">
+                                We received a request to <strong>reset your password</strong> for your Student Note Management System account.
+                                Please use the following One-Time Passcode (OTP) to proceed:
+                            </p>
+
+                            <!-- OTP Box -->
+                            <div style="font-size: 30px; font-weight: 700; letter-spacing: 5px; color: #1d4ed8; background: #eff6ff; padding: 18px; text-align: center; border-radius: 10px; margin: 30px 0;">
+                                ${otp}
+                            </div>
+
+                            <p style="font-size: 15px; color: #6b7280;">
+                                ⏳ This code is valid for <strong>10 minutes</strong>. Please do not share it with anyone for your security.
+                            </p>
+
+                            <p style="font-size: 15px; color: #6b7280;">
+                                If you did not request a password reset, you can safely ignore this message — your account will remain secure.
+                            </p>
+
+                            <!-- Divider -->
+                            <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 30px 0;"/>
+
+                        </div>
+
+                        <!-- Footer -->
+                        <div style="background-color: #f9fafb; padding: 20px; text-align: center; font-size: 13px; color: #9ca3af;">
+                            <p style="margin: 5px 0;">© ${new Date().getFullYear()} Student Note Management System</p>
+                            <p style="margin: 0;">All Rights Reserved</p>
+                        </div>
+                    </div>
+                </div>
+            `,
+        });
+
+        // hash and store otp in db
+        const hashotp = await bcrypt.hash(otp, 10);
+        const createotprecode = new UserOTP({
+            email,
+            otp: hashotp,
+            createdAt: new Date(),
+        });
+
+        const resultcreateotp = await createotprecode.save();
+        if (!resultcreateotp) {
+            throw new Error("Error saving OTP");
+        }
+
+        // genarate token for update password. and this token end after succssufully update the password
+        const token = tokenCreator({ email, otp }, "15m");
+
+        if (req) {
+            const metadata = {
+                ipAddress: req.headers['x-forwarded-for'] || req.socket.remoteAddress,
+                userAgent: req.headers['user-agent'],
+                timestamp: new Date(),
+            };
+            await logUserAction(req, "Request Password Reset OTP", `${existinguser.email} requested Password Reset OTP and Sent to email Success `, metadata, existinguser._id);
+        }
+
+        // using DTO send data
+        return ForgetPasswordResponseDTO(token)
+    }
+
+
+
+    // ------------------------- Check and verify OTP ---------------------------------------
+
+    static async CheckandVerifyOTP(token, otp, req) {
+        // get token and decoded user 
+        let decoded;
+        try {
+            decoded = jwt.verify(token, process.env.JWT_SECRET);
+        } catch (err) {
+            if (err.name === "TokenExpiredError") {
+                throw new Error("Token expired. Please request a new one.");
+            }
+            throw new Error("Invalid token.");
+        }
+
+        const user = await User.findOne({ email: decoded.email });
+        if (!user) throw new Error("User not found");
+
+        const checkotprecode = await UserOTP.findOne({ email: decoded.email });
+        if (!checkotprecode) throw new Error("OTP Record Not found");
+
+        const otpcheck = await bcrypt.compare(otp, checkotprecode.otp);
+
+        if (!otpcheck) {
+            const metadata = {
+                ipAddress: req.headers['x-forwarded-for'] || req.socket.remoteAddress,
+                userAgent: req.headers['user-agent'],
+                timestamp: new Date(),
+            };
+            await logUserAction(req, "Wrong_otp", `${user.email} Adding Wrong OTP when verifing Password Reset`, metadata, user._id);
+
+            throw new Error("OTP does not match");
+        }
+
+        await UserOTP.findOneAndDelete({ email: decoded.email });
+        if (req) {
+            const metadata = {
+                ipAddress: req.headers['x-forwarded-for'] || req.socket.remoteAddress,
+                userAgent: req.headers['user-agent'],
+                timestamp: new Date(),
+            };
+            await logUserAction(req, "OTP_verify_success", `${decoded.email} OTP Verification Success`, metadata, user._id);
+        }
+
+        return VerifyOTPResponseDTO()
+    }
+
+
+    // ----------------------------- Update Password -------------------------------------
+
+    static async UpdatePassword(token, newpassword, req) {
+        // get token and decoded user 
+        let decoded;
+        try {
+            decoded = jwt.verify(token, process.env.JWT_SECRET);
+        } catch (err) {
+            if (err.name === "TokenExpiredError") {
+                throw new Error("Token expired. Please request a new one.");
+            }
+            throw new Error("Invalid token.");
+        }
+
+        const user = await User.findOne({ email: decoded.email });
+        if (!user) throw new Error("User not found");
+
+
+        const hashpass = await bcrypt.hash(newpassword, 10);
+
+        const updatedUser = await User.findOneAndUpdate(
+            { email: decoded.email },
+            { $set: { password: hashpass } },
+            { new: true }
+        );
+
+        if (updatedUser) {
+            if (req) {
+                const metadata = {
+                    ipAddress: req.headers['x-forwarded-for'] || req.socket.remoteAddress,
+                    userAgent: req.headers['user-agent'],
+                    timestamp: new Date(),
+                };
+                await logUserAction(req, "password_Updated", `${decoded.email} Password Updated Success`, metadata, user._id);
+            }
+            return UpdatePasswordResponseDTO()
+        }
+
+
     }
 }
 
