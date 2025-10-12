@@ -5,6 +5,7 @@ import Dashboard from '../layouts/Dashboard'
 import TestInputs from '../pages/testingPages/TestInputs'
 import HomePage from '../pages/Welcome/HomePage'
 import DefultError from '../component/Errors/DefultError'
+import CreateAccount from '../pages/AuthPages/CreateAccount'
 
 function App() {
     return (
@@ -14,6 +15,7 @@ function App() {
                     <Route path='*' element={<DefultError /> } />
                     <Route index element={<HomePage /> } />
                     <Route path='/test' element={<TestInputs />} />
+                    <Route path='/create-account' element={<CreateAccount /> } />
                 </Route>
             </Routes>
 
