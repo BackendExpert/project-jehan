@@ -14,6 +14,7 @@ import VerifyEmail from '../pages/AuthPages/VerifyEmail'
 import StudentDashboard from '../layouts/StudentDashboard'
 import StdDash from '../pages/StudentDashboard/StdDash'
 import Notifications from '../pages/Dashboard/Notifications'
+import DashError from '../component/Dashboard/DashError'
 
 function App() {
     return (
@@ -33,7 +34,8 @@ function App() {
 
                 {/* for admin Dashboard */}
                 <Route path='/Dashboard' element={<PrivateRoute roles={['admin']}><Dashboard /></PrivateRoute>} >
-                    <Route path='notifications' element={<PrivateRoute roles={['admin', 'student']}><Notifications /></PrivateRoute>} />
+                    <Route path='*' element={<PrivateRoute roles={['admin']}><DashError /></PrivateRoute>} />                    
+                    <Route path='notifications' element={<PrivateRoute roles={['admin']}><Notifications /></PrivateRoute>} />
                 </Route>
 
                 {/* for student dashboard */}
