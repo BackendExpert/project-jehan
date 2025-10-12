@@ -13,6 +13,7 @@ import UpdatePassword from '../pages/AuthPages/UpdatePassword'
 import VerifyEmail from '../pages/AuthPages/VerifyEmail'
 import StudentDashboard from '../layouts/StudentDashboard'
 import StdDash from '../pages/StudentDashboard/StdDash'
+import Notifications from '../pages/Dashboard/Notifications'
 
 function App() {
     return (
@@ -31,13 +32,13 @@ function App() {
                 </Route>
 
                 {/* for admin Dashboard */}
-                {/* <Route path='/Dashboard' element={<PrivateRoute roles={['admin']} element={<Dashboard />} />} >
-
-                </Route> */}
+                <Route path='/Dashboard' element={<PrivateRoute roles={['admin']}><Dashboard /></PrivateRoute>} >
+                    <Route path='notifications' element={<PrivateRoute roles={['admin', 'student']}><Notifications /></PrivateRoute>} />
+                </Route>
 
                 {/* for student dashboard */}
-                <Route path='/my-account' element={<PrivateRoute roles={['admin', 'student']}><StudentDashboard /></PrivateRoute> }>
-                    <Route index element={<PrivateRoute roles={['admin', 'student']}><StdDash /></PrivateRoute> } />
+                <Route path='/my-account' element={<PrivateRoute roles={['admin', 'student']}><StudentDashboard /></PrivateRoute>}>
+                    <Route index element={<PrivateRoute roles={['admin', 'student']}><StdDash /></PrivateRoute>} />
                 </Route>
             </Routes>
 

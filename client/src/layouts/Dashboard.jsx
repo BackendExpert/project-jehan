@@ -12,7 +12,7 @@ const Dashboard = () => {
     const headlemenuopen = () => setOpenSide(prev => !prev)
 
     return (
-        <div className="h-screen w-screen overflow-hidden flex bg-gray-100">
+        <div className="h-screen w-screen overflow-hidden flex bg-gray-100/50">
             {/* Sidebar */}
             <aside
                 className={`
@@ -39,9 +39,9 @@ const Dashboard = () => {
                 aria-label="Toggle sidebar"
             >
                 {openside ? (
-                    <MdOutlineClose className="fill-blue-600 h-8 w-auto" />
+                    <MdOutlineClose className="fill-purple-600 h-8 w-auto" />
                 ) : (
-                    <TiThMenu className="fill-blue-600 h-8 w-auto" />
+                    <TiThMenu className="fill-purple-600 h-8 w-auto" />
                 )}
             </button>
 
