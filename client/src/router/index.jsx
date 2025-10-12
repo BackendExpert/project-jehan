@@ -11,27 +11,34 @@ import ForgetPassword from '../pages/AuthPages/ForgetPassword'
 import VerifyOTP from '../pages/AuthPages/VerifyOTP'
 import UpdatePassword from '../pages/AuthPages/UpdatePassword'
 import VerifyEmail from '../pages/AuthPages/VerifyEmail'
+import StudentDashboard from '../layouts/StudentDashboard'
 
 function App() {
     return (
         <BrowserRouter>
             <Routes>
                 <Route path='/' element={<WebSite />} >
-                    <Route path='*' element={<DefultError /> } />
-                    <Route index element={<HomePage /> } />
+                    <Route path='*' element={<DefultError />} />
+                    <Route index element={<HomePage />} />
                     <Route path='/test' element={<TestInputs />} />
-                    <Route path='/create-account' element={<CreateAccount /> } />
-                    <Route path='/verify-email' element={<VerifyEmail /> } />
-                    <Route path='/login' element={<Login /> } />
-                    <Route path='/forget-password' element={<ForgetPassword /> } />
-                    <Route path='/verify-otp' element={<VerifyOTP /> } />
-                    <Route path='/update-password' element={<UpdatePassword /> } />
+                    <Route path='/create-account' element={<CreateAccount />} />
+                    <Route path='/verify-email' element={<VerifyEmail />} />
+                    <Route path='/login' element={<Login />} />
+                    <Route path='/forget-password' element={<ForgetPassword />} />
+                    <Route path='/verify-otp' element={<VerifyOTP />} />
+                    <Route path='/update-password' element={<UpdatePassword />} />
                 </Route>
             </Routes>
 
-            {/* <Route path='/Dashboard' element={<PrivateRoute element={<Dashboard /> } /> } >
-            
-            </Route> */}
+            {/* for admin Dashboard */}
+            <Route path='/Dashboard' element={<PrivateRoute roles={['admin']} element={<Dashboard />} />} >
+                
+            </Route>
+
+            {/* for student dashboard */}
+            <Route path='/my-account' element={<PrivateRoute roles={['admin', 'student']} element={<StudentDashboard />} />} >
+
+            </Route>
         </BrowserRouter>
     )
 }
