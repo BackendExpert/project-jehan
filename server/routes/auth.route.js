@@ -16,7 +16,7 @@ router.post('/login', AuthController.login)
 router.post('/forget-password', AuthController.forgetPassword)
 
 // verify-otp
-router.post('/verify-opt', AuthController.verifyotp)
+router.post('/verify-otp', AuthController.verifyotp)
 
 // update password
 router.post('/update-password', AuthController.updatePassword)
