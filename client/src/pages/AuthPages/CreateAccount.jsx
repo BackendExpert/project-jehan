@@ -36,7 +36,7 @@ const CreateAccount = () => {
         }
         catch (err) {
             setErrorMessage(
-                err.response?.data?.error || "Server error. Please try again later."
+                err.res?.data?.error || "Server error. Please try again later."
             );
         }
     };

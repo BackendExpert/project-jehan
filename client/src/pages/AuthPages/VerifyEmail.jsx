@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useEffect } from "react";
 import { useState } from "react";
+import ShowError from "../../component/ErrorShow/ShowError";
+import API from "../../service/api";
 
 
 const VerifyEmail = () => {
@@ -51,12 +53,12 @@ const VerifyEmail = () => {
                 navigate('/login', { replace: true })
             }
             else {
-                alert(res.data.message)
+                setErrorMessage(res.data.error || "Something went wrong!");
             }
         }
         catch (err) {
             setErrorMessage(
-                err.response?.data?.error || "Server error. Please try again later."
+                err.res?.data?.error || "Server error. Please try again later."
             );
         }
     };

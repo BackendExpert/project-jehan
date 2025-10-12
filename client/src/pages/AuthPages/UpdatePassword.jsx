@@ -2,18 +2,62 @@ import React from "react";
 import useForm from "../../hooks/useForm";
 import DefaultInput from "../../component/Form/DefaultInput";
 import DefaultButton from "../../component/Buttons/DefaultButton";
+import ShowError from "../../component/ErrorShow/ShowError";
+import { useEffect } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import API from "../../service/api";
+
 
 const UpdatePassword = () => {
+
+    const token = localStorage.getItem('emailverify');
+    const navigate = useNavigate();
+
     const { values, handleChange } = useForm({
         newpassword: "",
         confirmnewpassword: ""
     });
 
-    const handleSubmit = (e) => {
+    useEffect(() => {
+        if (!token) {
+            localStorage.clear();
+            navigate('/', { replace: true });
+        }
+    }, [token, navigate])
+
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Password reset request:", values);
-        // Here you would call your API endpoint for sending reset email
+
+        const { newpass, confirmpass } = values;
+
+        if (newpassword !== confirmnewpassword) {
+            alert("Passwords Not Match");
+            return;
+        }
+
+        try {
+            const res = await API.post(
+                '/auth/update-password',
+                { newpass }, 
+                {
+                    headers: { Authorization: `Bearer ${token}` }
+                }
+            );
+
+            if (res.data.success === true || res.data.success === "true") {
+                alert(res.data.message);
+                localStorage.clear();
+                navigate('/');
+            } else {
+                setErrorMessage(res.data.error || "Something went wrong!");
+            }
+        } catch (err) {
+            console.log(err);
+        }
     };
+
 
     return (
         <div className="bg-gray-100/50 min-h-screen flex items-center justify-center px-4 py-10">
@@ -24,6 +68,7 @@ const UpdatePassword = () => {
                 <p className="text-gray-500 text-sm mb-6 text-center">
                     Update Password from Here
                 </p>
+
 
                 <form onSubmit={handleSubmit}>
                     <DefaultInput

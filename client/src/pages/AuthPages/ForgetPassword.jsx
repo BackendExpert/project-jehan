@@ -6,21 +6,36 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import ShowError from "../../component/ErrorShow/ShowError";
+import API from "../../service/api";
 
 
 const ForgetPassword = () => {
     const { handleEmailVerificationToken } = useAuth();
     const navigate = useNavigate();
-    const token = localStorage.getItem('forgetpass')
-    
+    const [errorMessage, setErrorMessage] = useState("");
+
     const { values, handleChange } = useForm({
         email: "",
     });
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Password reset request:", values);
-        // Here you would call your API endpoint for sending reset email
+        try {
+            const res = await API.post('/auth/forget-password', values);
+            if (res.data.success === true) {
+                alert(res.data.message);
+                handleEmailVerificationToken(res.data.token);
+                navigate('/verify-otp');
+            } else {
+                setErrorMessage(res.data.error || "Something went wrong!");
+
+            }
+        } catch (err) {
+            setErrorMessage(
+                err.res?.data?.error || "Server error. Please try again later."
+            );
+        }
     };
 
     return (
@@ -32,7 +47,11 @@ const ForgetPassword = () => {
                 <p className="text-gray-500 text-sm mb-6 text-center">
                     Enter your email address to receive a password reset OTP.
                 </p>
-
+                {errorMessage && (
+                    <div className="mb-4">
+                        <ShowError error_message={errorMessage} />
+                    </div>
+                )}
                 <form onSubmit={handleSubmit}>
                     <DefaultInput
                         label="Email"

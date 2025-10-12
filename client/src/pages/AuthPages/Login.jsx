@@ -2,6 +2,13 @@ import React from "react";
 import useForm from "../../hooks/useForm";
 import DefaultInput from "../../component/Form/DefaultInput";
 import DefaultButton from "../../component/Buttons/DefaultButton";
+import { useEffect } from "react";
+import { useState } from "react";
+import ShowError from "../../component/ErrorShow/ShowError";
+import { useNavigate } from "react-router-dom";
+import API from "../../service/api";
+import { useAuth } from "../../context/AuthContext";
+
 
 const Login = () => {
     const { values, handleChange } = useForm({
@@ -9,9 +16,32 @@ const Login = () => {
         password: "",
     });
 
-    const handleSubmit = (e) => {
+    const { login } = useAuth();
+    const navigate = useNavigate();
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Form submitted:", values);
+        try {
+            const res = await API.post('/auth/login', values);
+            if (res.data.success === true) {
+                alert(res.data.message);
+                login(res.data.token);
+                const decoded = jwtDecode(res.data.token);
+                const role = decoded?.role;
+
+                if (role === "admin") {
+                    navigate('/Dashboard')
+                } else if (role === "student") {
+                    navigate('/my-account')
+                } else {
+                    navigate('/')
+                }
+            } else {
+                alert(res.data.message);
+            }
+        } catch (err) {
+            console.log(err);
+        }
     };
 
     return (
