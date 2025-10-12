@@ -12,6 +12,7 @@ import VerifyOTP from '../pages/AuthPages/VerifyOTP'
 import UpdatePassword from '../pages/AuthPages/UpdatePassword'
 import VerifyEmail from '../pages/AuthPages/VerifyEmail'
 import StudentDashboard from '../layouts/StudentDashboard'
+import StdDash from '../pages/StudentDashboard/StdDash'
 
 function App() {
     return (
@@ -28,17 +29,19 @@ function App() {
                     <Route path='/verify-otp' element={<VerifyOTP />} />
                     <Route path='/update-password' element={<UpdatePassword />} />
                 </Route>
+
+                {/* for admin Dashboard */}
+                {/* <Route path='/Dashboard' element={<PrivateRoute roles={['admin']} element={<Dashboard />} />} >
+
+                </Route> */}
+
+                {/* for student dashboard */}
+                <Route path='/my-account' element={<PrivateRoute roles={['admin', 'student']}><StudentDashboard /></PrivateRoute> }>
+                    <Route index element={<PrivateRoute roles={['admin', 'student']}><StdDash /></PrivateRoute> } />
+                </Route>
             </Routes>
 
-            {/* for admin Dashboard */}
-            <Route path='/Dashboard' element={<PrivateRoute roles={['admin']} element={<Dashboard />} />} >
-                
-            </Route>
 
-            {/* for student dashboard */}
-            <Route path='/my-account' element={<PrivateRoute roles={['admin', 'student']} element={<StudentDashboard />} />} >
-
-            </Route>
         </BrowserRouter>
     )
 }
