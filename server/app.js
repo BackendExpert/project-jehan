@@ -15,6 +15,7 @@ require("dotenv").config();
 const authRoute = require('./routes/auth.route')
 const noteRoute = require('./routes/note.route')
 const adminRoute = require('./routes/admin.route')
+const userRoute = require('./routes/user.route')
 
 const app = express();
 
@@ -49,6 +50,9 @@ app.use('/api/note', noteRoute)
 
 // admin route
 app.use('/api/admin', adminRoute)
+
+// user route
+app.use('/api/user', userRoute)
 
 // health check
 app.get("/api", (req, res) => {
