@@ -23,6 +23,7 @@ import AdminManageNotes from '../pages/Dashboard/Notes/AdminManageNotes'
 import AdminDash from '../pages/Dashboard/AdminDash'
 import ManageUsers from '../pages/Dashboard/Users/ManageUsers'
 import UpdateRoleUser from '../pages/Dashboard/Users/UpdateRoleUser'
+import ManageActivities from '../pages/Dashboard/activities/ManageActivities'
 
 
 function App() {
@@ -49,7 +50,8 @@ function App() {
                     <Route path='notifications' element={<PrivateRoute roles={['admin']}><Notifications /></PrivateRoute>} />
                     <Route path='notes' element={<PrivateRoute roles={['admin']}><AdminManageNotes /></PrivateRoute>} />           
                     <Route path='users' element={<PrivateRoute roles={['admin']}><ManageUsers /></PrivateRoute>} />                
-                    <Route path='update-role/:id' element={<PrivateRoute roles={['admin']}><UpdateRoleUser /></PrivateRoute>} />                
+                    <Route path='update-role/:id' element={<PrivateRoute roles={['admin']}><UpdateRoleUser /></PrivateRoute>} />     
+                    <Route path='activities' element={<PrivateRoute roles={['admin']}><ManageActivities /></PrivateRoute>} />                      
                                
                 </Route>
 
