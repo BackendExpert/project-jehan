@@ -59,7 +59,7 @@ const DashSide = ({ closeSidebar }) => {
             name: "Notes Management",
             icon: <FaUserGraduate />,
             submenu: [
-                { link: "/Dashboard/interns", name: "Notes", icon: <MdSettings /> },
+                { link: "/Dashboard/notes", name: "Notes", icon: <MdSettings /> },
             ],
         },
         {
