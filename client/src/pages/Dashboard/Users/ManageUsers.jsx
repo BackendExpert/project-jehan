@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import API from "../../../service/api";
 import { FaUserCircle } from "react-icons/fa";
+import { useAuth } from "../../../context/AuthContext";
 
 const ManageUsers = () => {
+    const { auth } = useAuth()
     const [users, setUsers] = useState([]);
     const [search, setSearch] = useState("");
     const [error, setError] = useState(null);
@@ -114,9 +116,19 @@ const ManageUsers = () => {
                                             </span>
                                         </td>
                                         <td className="px-6 py-3">
-                                            <a href={`/Dashboard/update-role/${user._id}`} className="text-purple-500 hover:underline font-semibold">
-                                                Action
-                                            </a>
+                                            {
+                                                user._id === auth.id ?
+                                                    <div className="">
+                                                        <p className="text-red-500 font-semibold">Cannot update current user role</p>
+                                                    </div>
+                                                    :
+                                                    <div className="">
+                                                        <a href={`/Dashboard/update-role/${user._id}`} className="text-purple-500 hover:underline font-semibold">
+                                                            Action
+                                                        </a>
+                                                    </div>
+                                            }
+
                                         </td>
                                     </motion.tr>
                                 ))

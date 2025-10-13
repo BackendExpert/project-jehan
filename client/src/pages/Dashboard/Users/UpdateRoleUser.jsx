@@ -3,16 +3,17 @@ import { useParams, useNavigate } from "react-router-dom";
 import API from "../../../service/api";
 import Dropdown from "../../../component/Form/Dropdown";
 import DefaultButton from "../../../component/Buttons/DefaultButton";
+import { useAuth } from "../../../context/AuthContext";
 
 
 const UpdateRoleUser = () => {
+    const { auth } = useAuth()
     const { id } = useParams();
     const navigate = useNavigate();
     const [allroles, setAllRoles] = useState([]);
     const [oneuser, setOneUser] = useState(null);
     const [selectedRole, setSelectedRole] = useState("");
     const [loading, setLoading] = useState(true);
-    const [message, setMessage] = useState("");
     const [error, setError] = useState("");
     const token = localStorage.getItem("token");
 
@@ -55,8 +56,6 @@ const UpdateRoleUser = () => {
     // Handle role update
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setMessage("");
-        setError("");
 
         if (!selectedRole) return setError("Please select a role.");
 
@@ -66,13 +65,25 @@ const UpdateRoleUser = () => {
                 { roleId: selectedRole },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
-            setMessage("User role updated successfully!");
-            setTimeout(() => navigate("/admin/users"), 2000);
+            if (res.data.success === true) {
+                alert(res.data.message)
+                navigate('/Dashboard/users', { replace: true })
+            }
+            else {
+                alert(res.data.error)
+            }
         } catch (err) {
             console.error(err);
-            setError("Failed to update user role.");
         }
     };
+
+    useEffect(() => {
+        if (oneuser && auth) {
+            if (oneuser._id === auth.id) {
+                navigate('/Dashboard/users', { replace: true });
+            }
+        }
+    }, [oneuser, auth, navigate]);
 
     if (loading) {
         return (
@@ -98,7 +109,7 @@ const UpdateRoleUser = () => {
 
             <div className="mb-6 -mt-6">
                 <a href="/Dashboard/users">
-                    <DefaultButton 
+                    <DefaultButton
                         type="button"
                         label="Back to Manage Users"
                     />
@@ -125,8 +136,6 @@ const UpdateRoleUser = () => {
                     options={allroles}
                 />
 
-                {error && <p className="text-red-500 text-sm mb-3">{error}</p>}
-                {message && <p className="text-green-600 text-sm mb-3">{message}</p>}
 
                 <button
                     type="submit"

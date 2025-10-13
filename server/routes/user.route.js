@@ -11,4 +11,6 @@ router.get('/roledata', auth, checkPermission(['user:roledata']), UserController
 
 router.get('/getoneuser/:id', auth, checkPermission(['user:getone']), UserController.getoneuser)
 
+router.put('/updateRole/:id', auth, checkPermission(['user:updaterole']), UserController.updateUserRole)
+
 module.exports = router;

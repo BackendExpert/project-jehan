@@ -3,10 +3,13 @@ const Role = require("../models/role.model")
 
 const jwt = require('jsonwebtoken')
 
+const logUserAction = require("../utils/others/logUserAction")
+
 const {
     GetAllUserResponseDTO,
     GetallRolesResponseDTO,
-    GetOneUeserRolesResponseDTO
+    GetOneUeserRolesResponseDTO,
+    UpdateUserResponseDTO
 } = require("../dtos/user.dto");
 
 
