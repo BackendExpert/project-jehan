@@ -28,23 +28,23 @@ const DashSide = ({ closeSidebar }) => {
         setOpenMenu(openMenu === index ? null : index);
     };
 
-    useEffect(() => {
-        const fetchmyprofileimage = async () => {
-            try {
-                const res = await API.get(`/member/get-myprofileimage?nocache=${Date.now()}`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
-                setMyProfileImage(
-                    Array.isArray(res.data.result) ? res.data.result : [res.data.result]
-                );
-            } catch (err) {
-                console.error("Failed to fetch roles:", err);
-            }
-        };
-        fetchmyprofileimage();
-    }, [token]);
+    // useEffect(() => {
+    //     const fetchmyprofileimage = async () => {
+    //         try {
+    //             const res = await API.get(`/member/get-myprofileimage?nocache=${Date.now()}`, {
+    //                 headers: {
+    //                     Authorization: `Bearer ${token}`,
+    //                 },
+    //             });
+    //             setMyProfileImage(
+    //                 Array.isArray(res.data.result) ? res.data.result : [res.data.result]
+    //             );
+    //         } catch (err) {
+    //             console.error("Failed to fetch roles:", err);
+    //         }
+    //     };
+    //     fetchmyprofileimage();
+    // }, [token]);
 
     const menuItems = [
         { link: "/Dashboard", name: "Overview", icon: <MdDashboard /> },
