@@ -52,7 +52,7 @@ const DashSide = ({ closeSidebar }) => {
             name: "User Management",
             icon: <FaUserShield />,
             submenu: [
-                { link: "/Dashboard/manage-roles", name: "Users", icon: <FaUsers /> },
+                { link: "/Dashboard/users", name: "Users", icon: <FaUsers /> },
             ],
         },
         {

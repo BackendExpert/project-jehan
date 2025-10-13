@@ -21,6 +21,7 @@ import Unauthorized from './Unauthorized'
 import CreateNote from '../pages/StudentDashboard/CreateNote'
 import AdminManageNotes from '../pages/Dashboard/Notes/AdminManageNotes'
 import AdminDash from '../pages/Dashboard/AdminDash'
+import ManageUsers from '../pages/Dashboard/Users/ManageUsers'
 
 
 function App() {
@@ -45,7 +46,8 @@ function App() {
                     <Route path='*' element={<PrivateRoute roles={['admin']}><DashError /></PrivateRoute>} />
                     <Route index element={<PrivateRoute roles={['admin']}><AdminDash /></PrivateRoute>} />                    
                     <Route path='notifications' element={<PrivateRoute roles={['admin']}><Notifications /></PrivateRoute>} />
-                    <Route path='notes' element={<PrivateRoute roles={['admin']}><AdminManageNotes /></PrivateRoute>} />                    
+                    <Route path='notes' element={<PrivateRoute roles={['admin']}><AdminManageNotes /></PrivateRoute>} />           
+                    <Route path='users' element={<PrivateRoute roles={['admin']}><ManageUsers /></PrivateRoute>} />                           
                 </Route>
 
                 {/* for student dashboard */}
