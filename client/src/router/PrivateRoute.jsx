@@ -22,7 +22,7 @@ const PrivateRoute = ({ children, roles }) => {
     }
 
     if (!auth.token) {
-        return <Navigate to="/" />;
+        return <Navigate to="/login" />;
     }
 
     if (roles && !roles.includes(auth.role)) {

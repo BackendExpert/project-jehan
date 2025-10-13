@@ -127,7 +127,7 @@ class AuthService {
                         <!-- Footer -->
                         <div style="background-color: #f9fafb; padding: 20px; text-align: center; font-size: 13px; color: #9ca3af;">
                             <p style="margin: 5px 0;">© ${new Date().getFullYear()} Student Note Management System</p>
-                            <p style="margin: 0;">University of Peradeniya | All Rights Reserved</p>
+                            <p style="margin: 0;">All Rights Reserved</p>
                         </div>
                     </div>
                 </div>
