@@ -31,21 +31,21 @@ const DashNav = ({ onMenuClick }) => {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
-    useEffect(() => {
-        const fetchmyprofileimage = async () => {
-            try {
-                const res = await API.get(`/member/get-myprofileimage?nocache=${Date.now()}`, {
-                    headers: { Authorization: `Bearer ${token}` },
-                });
-                setMyProfileImage(
-                    Array.isArray(res.data.result) ? res.data.result : [res.data.result]
-                );
-            } catch {
-                setMyProfileImage([]);
-            }
-        };
-        fetchmyprofileimage();
-    }, [token]);
+    // useEffect(() => {
+    //     const fetchmyprofileimage = async () => {
+    //         try {
+    //             const res = await API.get(`/member/get-myprofileimage?nocache=${Date.now()}`, {
+    //                 headers: { Authorization: `Bearer ${token}` },
+    //             });
+    //             setMyProfileImage(
+    //                 Array.isArray(res.data.result) ? res.data.result : [res.data.result]
+    //             );
+    //         } catch {
+    //             setMyProfileImage([]);
+    //         }
+    //     };
+    //     fetchmyprofileimage();
+    // }, [token]);
 
     return (
         <header className="sticky top-0 z-50 bg-white/70 backdrop-blur-md border-b border-purple-200">

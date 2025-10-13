@@ -19,6 +19,9 @@ import ManageNotes from '../pages/StudentDashboard/ManageNotes'
 import StdDashError from '../component/Errors/StdDashError'
 import Unauthorized from './Unauthorized'
 import CreateNote from '../pages/StudentDashboard/CreateNote'
+import AdminManageNotes from '../pages/Dashboard/Notes/AdminManageNotes'
+import AdminDash from '../pages/Dashboard/AdminDash'
+
 
 function App() {
     return (
@@ -40,7 +43,9 @@ function App() {
                 {/* for admin Dashboard */}
                 <Route path='/Dashboard' element={<PrivateRoute roles={['admin']}><Dashboard /></PrivateRoute>} >
                     <Route path='*' element={<PrivateRoute roles={['admin']}><DashError /></PrivateRoute>} />
+                    <Route index element={<PrivateRoute roles={['admin']}><AdminDash /></PrivateRoute>} />                    
                     <Route path='notifications' element={<PrivateRoute roles={['admin']}><Notifications /></PrivateRoute>} />
+                    <Route path='notes' element={<PrivateRoute roles={['admin']}><AdminManageNotes /></PrivateRoute>} />                    
                 </Route>
 
                 {/* for student dashboard */}
