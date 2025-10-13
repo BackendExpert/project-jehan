@@ -12,6 +12,7 @@ import {
     FaChevronUp,
     FaUsers,
     FaUserGraduate,
+    FaFile,
 } from "react-icons/fa6";
 import { FaBalanceScale } from "react-icons/fa";
 import defultImg from "../../assets/user.png";
@@ -59,7 +60,7 @@ const DashSide = ({ closeSidebar }) => {
             name: "Notes Management",
             icon: <FaUserGraduate />,
             submenu: [
-                { link: "/Dashboard/notes", name: "Notes", icon: <MdSettings /> },
+                { link: "/Dashboard/notes", name: "Notes", icon: <FaFile /> },
             ],
         },
         {
