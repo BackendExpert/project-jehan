@@ -7,12 +7,12 @@ import API from '../../../service/api'
 const UpdateRoleUser = () => {
     const { id } = useParams()
     const [allroles, setallroles] = useState([]);
-    const [search, setSearch] = useState("");
+    const [oneuser, setoneuser] = useState(null);
     const [error, setError] = useState(null);
     const token = localStorage.getItem("token");
 
     useEffect(() => {
-        const fetchUsers = async () => {
+        const fetchroles = async () => {
             try {
                 const res = await API.get(`/user/roledata?nocache=${Date.now()}`, {
                     headers: { Authorization: `Bearer ${token}` },
@@ -23,10 +23,25 @@ const UpdateRoleUser = () => {
                 setallroles("Failed to load Roles.");
             }
         };
-        fetchUsers();
+        fetchroles();
     }, [token]);
 
-    
+    useEffect(() => {
+        const fetchoneuser = async () => {
+            try {
+                const res = await API.get(`/user/getoneuser/${id}roledata?nocache=${Date.now()}`, {
+                    headers: { Authorization: `Bearer ${token}` },
+                });
+                setoneuser(res.data.result);
+            } catch (err) {
+                console.error("Failed to fetch Roles:", err);
+                setoneuser("Failed to load Roles.");
+            }
+        };
+        fetchoneuser();
+    }, [token]);
+
+
 
     return (
         <div>
