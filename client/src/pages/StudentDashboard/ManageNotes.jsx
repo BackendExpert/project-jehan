@@ -56,7 +56,7 @@ const ManageNotes = () => {
                             }
                         />
                     </a>
-                    <a href="/create-note">
+                    <a href="/my-account/create-note">
                         <DefaultButton
                             type="button"
                             label={

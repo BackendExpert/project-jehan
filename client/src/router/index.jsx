@@ -16,6 +16,9 @@ import StdDash from '../pages/StudentDashboard/StdDash'
 import Notifications from '../pages/Dashboard/Notifications'
 import DashError from '../component/Dashboard/DashError'
 import ManageNotes from '../pages/StudentDashboard/ManageNotes'
+import StdDashError from '../component/Errors/StdDashError'
+import Unauthorized from './Unauthorized'
+import CreateNote from '../pages/StudentDashboard/CreateNote'
 
 function App() {
     return (
@@ -31,6 +34,7 @@ function App() {
                     <Route path='/forget-password' element={<ForgetPassword />} />
                     <Route path='/verify-otp' element={<VerifyOTP />} />
                     <Route path='/update-password' element={<UpdatePassword />} />
+                    <Route path='/unauthorized' element={<Unauthorized /> } />
                 </Route>
 
                 {/* for admin Dashboard */}
@@ -41,9 +45,11 @@ function App() {
 
                 {/* for student dashboard */}
                 <Route path='/my-account' element={<PrivateRoute roles={['admin', 'student']}><StudentDashboard /></PrivateRoute>}>
-                    <Route path='*' element={<PrivateRoute roles={['admin', 'student']}><DashError /></PrivateRoute>} />
+                    <Route path='*' element={<PrivateRoute roles={['admin', 'student']}><StdDashError /></PrivateRoute>} />
                     <Route index element={<PrivateRoute roles={['admin', 'student']}><StdDash /></PrivateRoute>} />
                     <Route path='manage-notes' element={<PrivateRoute roles={['admin', 'student']}><ManageNotes /></PrivateRoute>} />
+                    <Route path='create-note' element={<PrivateRoute roles={['admin', 'student']}><CreateNote /></PrivateRoute>} />
+                    
                 </Route>
             </Routes>
 
