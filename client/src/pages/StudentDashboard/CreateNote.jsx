@@ -6,10 +6,11 @@ import DefaultButton from "../../component/Buttons/DefaultButton";
 import FileInput from "../../component/Form/FileInput";
 import TextAreaInput from "../../component/Form/TextAreaInput";
 import DefaultInput from "../../component/Form/DefaultInput";
-
+import { useNavigate } from "react-router-dom";
 
 const CreateNote = () => {
-    const token = localStorage.getItem("login")
+    const navigate = useNavigate()
+    const token = localStorage.getItem("token")
     const { values, handleChange } = useForm({
         title: "",
         content: "",
@@ -34,15 +35,16 @@ const CreateNote = () => {
             formData.append("content", values.content);
             if (file) formData.append("notefile", file);
 
-            const response = await API.post("/notes", formData, {
+            const response = await API.post("/note", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                     Authorization: `Bearer ${token}`,
                 },
             });
 
-            if (!response.data.success) {
-                setError(response.data.message || "Failed to create note");
+            if (response.data.success === true) {
+                alert(response.data.message)
+                navigate('/my-account/manage-notes', {replace: true})
             }
         } catch (err) {
             setError(err.response?.data?.message || "Something went wrong");
