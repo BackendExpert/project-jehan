@@ -1,6 +1,7 @@
 const UserService = require("../services/user.services");
 const {
-    GetOneUserDTO
+    GetOneUserDTO,
+    ErrorResponseDTO
 } = require('../dtos/user.dto')
 
 const UserController = {

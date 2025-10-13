@@ -42,7 +42,7 @@ class UserService {
     }
 
     static async getoneuser(userid){
-        const getuser = await User.findById(userid)
+        const getuser = await User.findById(userid).populate('role')
 
         return GetOneUeserRolesResponseDTO(getuser)
     }

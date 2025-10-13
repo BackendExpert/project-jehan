@@ -8,3 +8,6 @@ exports.GetOneUeserRolesResponseDTO = (result, message="One User Fetched Success
 
 exports.UpdateUserRoleDTO = (token, userid, roleid) => ({ token, userid, roleid})
 exports.UpdateUserResponseDTO = (message="Update user role successufully") => ({ success: true, message })
+
+
+exports.ErrorResponseDTO = (message = "Something went wrong") => ({ success: false, message })
