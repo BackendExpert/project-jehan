@@ -188,7 +188,7 @@ const ManageNotes = () => {
                     {currentNotes.map((note) => (
                         <div
                             key={note._id}
-                            className={`backdrop-blur-sm bg-white/80 border border-gray-100 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 p-5 ${view === "list" ? "flex justify-between items-center" : ""}`}
+                            className={`backdrop-blur-sm bg-white/80 border border-gray-100 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 p-5 ${view === "list" ? "md:flex justify-between items-center" : ""}`}
                         >
                             <div className={`${view === "list" ? "w-2/3" : ""}`}>
                                 <h2 className="text-lg font-semibold text-gray-800 mb-2">{note.title}</h2>
