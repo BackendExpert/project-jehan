@@ -9,4 +9,6 @@ router.get('/', auth, checkPermission(['user:getall']), UserController.getalluse
 
 router.get('/roledata', auth, checkPermission(['user:roledata']), UserController.getallrole)
 
+router.get('/getoneuser/:id', auth, checkPermission(['user:getone']), UserController.getoneuser)
+
 module.exports = router;

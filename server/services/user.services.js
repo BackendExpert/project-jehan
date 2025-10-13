@@ -5,7 +5,8 @@ const jwt = require('jsonwebtoken')
 
 const {
     GetAllUserResponseDTO,
-    GetallRolesResponseDTO
+    GetallRolesResponseDTO,
+    GetOneUeserRolesResponseDTO
 } = require("../dtos/user.dto");
 
 
@@ -38,6 +39,12 @@ class UserService {
         const getroledata = await Role.find()
 
         return GetallRolesResponseDTO(getroledata)
+    }
+
+    static async getoneuser(userid){
+        const getuser = await User.findById(userid)
+
+        return GetOneUeserRolesResponseDTO(getuser)
     }
 }
 

@@ -1,4 +1,7 @@
 const UserService = require("../services/user.services");
+const {
+    GetOneUserDTO
+} = require('../dtos/user.dto')
 
 const UserController = {
     getallusers: async (req, res) => {
@@ -23,6 +26,23 @@ const UserController = {
         }
         catch(err){
             return res.status(400).json(ErrorResponseDTO(err.message));
+        }
+    },
+
+    getoneuser: async(req, res) => {
+        try{
+            const userid = req.params.id
+
+            const oneuserDto = GetOneUserDTO(userid)
+
+            const result = await UserService.getoneuser(
+                oneuserDto.userid
+            )
+
+            res.status(200).json(result)
+        }
+        catch(err){
+            return res.status(400).json(ErrorResponseDTO(err.message));            
         }
     }
 };
