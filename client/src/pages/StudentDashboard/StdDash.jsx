@@ -3,6 +3,9 @@ import { motion } from "framer-motion";
 import { FaClipboardList } from "react-icons/fa";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import DefaultButton from "../../component/Buttons/DefaultButton";
+import { useState } from "react";
+import { useEffect } from "react";
+import API from "../../service/api";
 
 const notesData = [
     { month: "Jan", notes: 5 },
@@ -13,6 +16,23 @@ const notesData = [
 ];
 
 const StdDash = () => {
+    const  [Mynotes, setMynotes] = useState([])
+    const token = localStorage.getItem('token')
+
+    useEffect(() => {
+        const fetchNotes = async () => {
+            try {
+                const res = await API.get(`/note/my-notes?nocache=${Date.now()}`, {
+                    headers: { Authorization: `Bearer ${token}` },
+                });
+                setMynotes(Array.isArray(res.data.result) ? res.data.result : []);
+            } catch (err) {
+                console.error("Failed to fetch notes:", err);
+                setMynotes([]);
+            }
+        };
+        fetchNotes();
+    }, [token]);
     return (
         <div className="flex flex-col w-full p-6">
 
@@ -41,17 +61,19 @@ const StdDash = () => {
                 <div className="flex flex-col items-center justify-center p-6 border-t-4 border-purple-600 rounded-md bg-white">
                     <FaClipboardList className="text-purple-600 text-4xl mb-3" />
                     <p className="text-gray-700 uppercase text-xs tracking-wider">Total Notes</p>
-                    <p className="text-2xl font-bold text-purple-700 mt-1">24</p>
+                    <p className="text-2xl font-bold text-purple-700 mt-1">{Mynotes.length}</p>
                 </div>
                 <div className="flex flex-col items-center justify-center p-6 border-t-4 border-purple-600 rounded-md bg-white">
                     <FaClipboardList className="text-purple-600 text-4xl mb-3" />
                     <p className="text-gray-700 uppercase text-xs tracking-wider">Total Notes</p>
-                    <p className="text-2xl font-bold text-purple-700 mt-1">24</p>
+                    <p className="text-2xl font-bold text-purple-700 mt-1">{Mynotes.length}</p>
+
                 </div>
                 <div className="flex flex-col items-center justify-center p-6 border-t-4 border-purple-600 rounded-md bg-white">
                     <FaClipboardList className="text-purple-600 text-4xl mb-3" />
                     <p className="text-gray-700 uppercase text-xs tracking-wider">Total Notes</p>
-                    <p className="text-2xl font-bold text-purple-700 mt-1">24</p>
+                    <p className="text-2xl font-bold text-purple-700 mt-1">{Mynotes.length}</p>
+
                 </div>
             </motion.div>
 
