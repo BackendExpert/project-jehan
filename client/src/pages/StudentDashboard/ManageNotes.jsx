@@ -1,32 +1,39 @@
 import React, { useState } from "react";
 import DefaultButton from "../../component/Buttons/DefaultButton";
 import { LayoutGrid, List, Trash2, Edit3, Plus, ArrowLeft } from "lucide-react";
+import API from "../../service/api";
+import { useEffect } from "react";
 
 const ManageNotes = () => {
     const [view, setView] = useState("grid"); // "grid" or "list"
-    const [notes, setNotes] = useState([
-        {
-            _id: 1,
-            title: "Meeting Summary",
-            content: "Discussed project milestones and next sprint tasks.",
-            date: "2025-10-10",
-        },
-        {
-            _id: 2,
-            title: "Frontend Refactor",
-            content: "Clean up Dashboard layout and add dark mode toggle.",
-            date: "2025-10-09",
-        },
-        {
-            _id: 3,
-            title: "Ideas for New Feature",
-            content: "Maybe implement AI summarizer for user notes.",
-            date: "2025-10-08",
-        },
-    ]);
+    const token = localStorage.getItem("token")
+    const [mynotes, setmynotes] = useState([])
+
+    useEffect(() => {
+        const fetchrequestedsheets = async () => {
+            try {
+                const res = await API.get(`/note/my-notes?nocache=${Date.now()}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Cache-Control": "no-cache",
+                        Pragma: "no-cache",
+                        Expires: "0",
+                    },
+                });
+
+                setmynotes(Array.isArray(res.data.result) ? res.data.result : []);
+            } catch (err) {
+                console.error("Failed to fetch roles:", err);
+                setmynotes([]);
+            }
+        };
+
+        fetchrequestedsheets();
+    }, [token]);
+
 
     const handleDelete = (id) => {
-        setNotes(notes.filter((note) => note._id !== id));
+        setmynotes(mynotes.filter((note) => note._id !== id));
     };
 
     const handleEdit = (id) => {
@@ -80,8 +87,8 @@ const ManageNotes = () => {
                     <button
                         onClick={() => setView("grid")}
                         className={`p-2 rounded-lg transition ${view === "grid"
-                                ? "bg-white shadow-sm text-blue-600"
-                                : "text-gray-500 hover:text-blue-600"
+                            ? "bg-white shadow-sm text-blue-600"
+                            : "text-gray-500 hover:text-blue-600"
                             }`}
                     >
                         <LayoutGrid size={18} />
@@ -89,8 +96,8 @@ const ManageNotes = () => {
                     <button
                         onClick={() => setView("list")}
                         className={`p-2 rounded-lg transition ${view === "list"
-                                ? "bg-white shadow-sm text-blue-600"
-                                : "text-gray-500 hover:text-blue-600"
+                            ? "bg-white shadow-sm text-blue-600"
+                            : "text-gray-500 hover:text-blue-600"
                             }`}
                     >
                         <List size={18} />
@@ -99,14 +106,14 @@ const ManageNotes = () => {
             </div>
 
             {/* Notes Display */}
-            {notes.length > 0 ? (
+            {mynotes.length > 0 ? (
                 <div
                     className={`${view === "grid"
-                            ? "grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
-                            : "flex flex-col gap-4"
+                        ? "grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
+                        : "flex flex-col gap-4"
                         }`}
                 >
-                    {notes.map((note) => (
+                    {mynotes.map((note) => (
                         <div
                             key={note._id}
                             className={`backdrop-blur-sm bg-white/80 border border-gray-100 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 p-5 ${view === "list" ? "flex justify-between items-center" : ""
