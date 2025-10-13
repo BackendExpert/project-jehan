@@ -53,7 +53,6 @@ const DashSide = ({ closeSidebar }) => {
             icon: <FaUserShield />,
             submenu: [
                 { link: "/Dashboard/manage-roles", name: "Users", icon: <FaUsers /> },
-                { link: "/Dashboard/permissions", name: "Permissions", icon: <FaBalanceScale /> },
             ],
         },
         {
