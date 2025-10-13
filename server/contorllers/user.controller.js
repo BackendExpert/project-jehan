@@ -1,7 +1,8 @@
 const UserService = require("../services/user.services");
 const {
     GetOneUserDTO,
-    ErrorResponseDTO
+    ErrorResponseDTO,
+    UpdateUserRoleDTO
 } = require('../dtos/user.dto')
 
 const UserController = {
@@ -20,18 +21,18 @@ const UserController = {
         }
     },
 
-    getallrole: async(req, res) => {
-        try{
+    getallrole: async (req, res) => {
+        try {
             const result = await UserService.getallroledata()
             res.status(200).json(result)
         }
-        catch(err){
+        catch (err) {
             return res.status(400).json(ErrorResponseDTO(err.message));
         }
     },
 
-    getoneuser: async(req, res) => {
-        try{
+    getoneuser: async (req, res) => {
+        try {
             const userid = req.params.id
 
             const oneuserDto = GetOneUserDTO(userid)
@@ -42,8 +43,38 @@ const UserController = {
 
             res.status(200).json(result)
         }
-        catch(err){
-            return res.status(400).json(ErrorResponseDTO(err.message));            
+        catch (err) {
+            return res.status(400).json(ErrorResponseDTO(err.message));
+        }
+    },
+
+    updateUserRole: async (req, res) => {
+        try {
+
+            const token = req.header("Authorization")?.replace("Bearer ", "");
+            if (!token) {
+                return res.status(401).json(ErrorResponseDTO("Access denied. No token provided."));
+            }
+
+            const { roleId } = req.body
+            const userid = req.params.id
+
+            const updateuserdto = UpdateUserRoleDTO(
+                token,
+                userid,
+                roleId
+            )
+
+            const result = await UserService.updateUserRole(
+                updateuserdto.token,
+                updateuserdto.userid,
+                updateuserdto.roleid,
+                req
+            )
+            res.status(200).json(result)
+        }
+        catch (err) {
+            return res.status(400).json(ErrorResponseDTO(err.message));
         }
     }
 };
