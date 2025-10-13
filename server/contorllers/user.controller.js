@@ -14,6 +14,16 @@ const UserController = {
         catch (err) {
             return res.status(400).json(ErrorResponseDTO(err.message));
         }
+    },
+
+    getallrole: async(req, res) => {
+        try{
+            const result = await UserService.getallroledata()
+            res.status(200).json(result)
+        }
+        catch(err){
+            return res.status(400).json(ErrorResponseDTO(err.message));
+        }
     }
 };
 

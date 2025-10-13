@@ -7,4 +7,6 @@ const router = express.Router();
 
 router.get('/', auth, checkPermission(['user:getall']), UserController.getallusers)
 
+router.get('/roledata', auth, checkPermission(['user:roledata']), UserController.getallrole)
+
 module.exports = router;

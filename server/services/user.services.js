@@ -1,6 +1,15 @@
-const { GetAllUserResponseDTO } = require("../dtos/user.dto");
 const User = require("../models/user.model");
+const Role = require("../models/role.model")
+
 const jwt = require('jsonwebtoken')
+
+const {
+    GetAllUserResponseDTO,
+    GetallRolesResponseDTO
+} = require("../dtos/user.dto");
+
+
+
 
 class UserService {
     static async getallusers(token, req) {
@@ -23,6 +32,12 @@ class UserService {
 
         // user dto send data
         return GetAllUserResponseDTO(getalluser)
+    }
+
+    static async getallroledata(){
+        const getroledata = await Role.find()
+
+        return GetallRolesResponseDTO(getroledata)
     }
 }
 
