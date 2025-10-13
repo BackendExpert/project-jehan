@@ -6,6 +6,7 @@ const {
 } = require('../dtos/user.dto')
 
 const UserController = {
+    // get all users
     getallusers: async (req, res) => {
         try {
             const token = req.header("Authorization")?.replace("Bearer ", "");
@@ -21,6 +22,7 @@ const UserController = {
         }
     },
 
+    // get all roles 
     getallrole: async (req, res) => {
         try {
             const result = await UserService.getallroledata()
@@ -31,6 +33,7 @@ const UserController = {
         }
     },
 
+    // get one user by user ID
     getoneuser: async (req, res) => {
         try {
             const userid = req.params.id
@@ -48,6 +51,7 @@ const UserController = {
         }
     },
 
+    // update user role
     updateUserRole: async (req, res) => {
         try {
 
@@ -59,6 +63,7 @@ const UserController = {
             const { roleId } = req.body
             const userid = req.params.id
 
+            // user dto
             const updateuserdto = UpdateUserRoleDTO(
                 token,
                 userid,
