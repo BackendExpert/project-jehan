@@ -1,6 +1,20 @@
 const User = require('../models/user.model')
 const Role = require('../models/role.model');
-const { CreatePremissionResponseDTO, GetAllPermissionsResponseDTO } = require('../dtos/premission.dto');
+const LogActivies = require('../models/userlogs.model')
+
+const logUserAction = require('../utils/others/logUserAction')
+
+const jwt = require('jsonwebtoken')
+
+const { 
+    CreatePremissionResponseDTO, 
+    GetAllPermissionsResponseDTO 
+} = require('../dtos/premission.dto');
+
+const {
+    GetallactivitiesResponseDTO,
+    GetOneActivityRolesResponseDTO
+} = require('../dtos/activities.dto')
 
 class AdminService {
     static async CreatePermission(roleid, permission, token, req) {
@@ -57,6 +71,21 @@ class AdminService {
         const getallroles = await Role.find()
 
         return GetAllPermissionsResponseDTO(getallroles)
+    }
+
+    // get all user Activitis
+    static async getallactivities(){
+        const getactivites = await LogActivies.find().populate('user')
+
+        return GetallactivitiesResponseDTO(getactivites)
+    }
+
+    // get one actiavity
+
+    static async getoneactivity(activityid){
+        const oneactivity = await LogActivies.findById(activityid).populate('user')
+
+        return GetOneActivityRolesResponseDTO(oneactivity)
     }
    
 }

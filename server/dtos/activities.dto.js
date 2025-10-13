@@ -6,4 +6,4 @@ exports.GetOneActivityDTO = (activiteId) => ({ activiteId })
 exports.GetOneActivityRolesResponseDTO = (result, message="One Activity Fetched Success") => ({ result, message })
 
 // error dto
-exports.ErrorResponseDTO = (message = "Something went wrong") => ({ success: false, message })
+exports.ActErrorResponseDTO = (message = "Something went wrong") => ({ success: false, message })
