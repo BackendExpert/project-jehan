@@ -24,6 +24,7 @@ import AdminDash from '../pages/Dashboard/AdminDash'
 import ManageUsers from '../pages/Dashboard/Users/ManageUsers'
 import UpdateRoleUser from '../pages/Dashboard/Users/UpdateRoleUser'
 import ManageActivities from '../pages/Dashboard/activities/ManageActivities'
+import ViewActivity from '../pages/Dashboard/activities/ViewActivity'
 
 
 function App() {
@@ -40,19 +41,20 @@ function App() {
                     <Route path='/forget-password' element={<ForgetPassword />} />
                     <Route path='/verify-otp' element={<VerifyOTP />} />
                     <Route path='/update-password' element={<UpdatePassword />} />
-                    <Route path='/unauthorized' element={<Unauthorized /> } />
+                    <Route path='/unauthorized' element={<Unauthorized />} />
                 </Route>
 
                 {/* for admin Dashboard */}
                 <Route path='/Dashboard' element={<PrivateRoute roles={['admin']}><Dashboard /></PrivateRoute>} >
                     <Route path='*' element={<PrivateRoute roles={['admin']}><DashError /></PrivateRoute>} />
-                    <Route index element={<PrivateRoute roles={['admin']}><AdminDash /></PrivateRoute>} />                    
+                    <Route index element={<PrivateRoute roles={['admin']}><AdminDash /></PrivateRoute>} />
                     <Route path='notifications' element={<PrivateRoute roles={['admin']}><Notifications /></PrivateRoute>} />
-                    <Route path='notes' element={<PrivateRoute roles={['admin']}><AdminManageNotes /></PrivateRoute>} />           
-                    <Route path='users' element={<PrivateRoute roles={['admin']}><ManageUsers /></PrivateRoute>} />                
-                    <Route path='update-role/:id' element={<PrivateRoute roles={['admin']}><UpdateRoleUser /></PrivateRoute>} />     
-                    <Route path='activities' element={<PrivateRoute roles={['admin']}><ManageActivities /></PrivateRoute>} />                      
-                               
+                    <Route path='notes' element={<PrivateRoute roles={['admin']}><AdminManageNotes /></PrivateRoute>} />
+                    <Route path='users' element={<PrivateRoute roles={['admin']}><ManageUsers /></PrivateRoute>} />
+                    <Route path='update-role/:id' element={<PrivateRoute roles={['admin']}><UpdateRoleUser /></PrivateRoute>} />
+                    <Route path='activities' element={<PrivateRoute roles={['admin']}><ManageActivities /></PrivateRoute>} />  
+                    <Route path='view-activity/:id' element={<PrivateRoute roles={['admin']}><ViewActivity /></PrivateRoute>} />    
+
                 </Route>
 
                 {/* for student dashboard */}
@@ -61,7 +63,7 @@ function App() {
                     <Route index element={<PrivateRoute roles={['admin', 'student']}><StdDash /></PrivateRoute>} />
                     <Route path='manage-notes' element={<PrivateRoute roles={['admin', 'student']}><ManageNotes /></PrivateRoute>} />
                     <Route path='create-note' element={<PrivateRoute roles={['admin', 'student']}><CreateNote /></PrivateRoute>} />
-                    
+
                 </Route>
             </Routes>
 
