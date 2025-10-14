@@ -28,6 +28,16 @@ const AuthController = {
                 registrationData.password,
                 req
             );
+
+            // Emit Socket.io event for new user
+            const io = req.app.get("io");
+            if (io) {
+                io.emit("newUser", {
+                    username: registrationData.username,
+                    email: registrationData.email,
+                    createdAt: new Date(),
+                });
+            }
             res.status(200).json(result)
         }
         catch (err) {
