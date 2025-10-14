@@ -28,6 +28,16 @@ const AuthController = {
                 registrationData.password,
                 req
             );
+
+            // Emit Socket.io event for new user
+            const io = req.app.get("io");
+            if (io) {
+                io.emit("newUser", {
+                    username: registrationData.username,
+                    email: registrationData.email,
+                    createdAt: new Date(),
+                });
+            }
             res.status(200).json(result)
         }
         catch (err) {
@@ -121,17 +131,15 @@ const AuthController = {
         try {
             const token = req.header("Authorization")?.replace("Bearer ", "");
             if (!token) {
-                return res.status(401).json({
-                    success: false,
-                    message: "Access denied. No token provided.",
-                });
+                return res.status(401).json({ message: "Access denied. No token provided." });
             }
 
             const { otp } = req.body
 
-            const otpcheckdto = VerifyOTPDTO(otp)
+            const otpcheckdto = VerifyOTPDTO(token, otp)
 
             const result = await AuthService.CheckandVerifyOTP(
+                otpcheckdto.token,
                 otpcheckdto.otp,
                 req
             )
@@ -147,17 +155,16 @@ const AuthController = {
         try {
             const token = req.header("Authorization")?.replace("Bearer ", "");
             if (!token) {
-                return res.status(401).json({
-                    success: false,
-                    message: "Access denied. No token provided.",
-                });
+                return res.status(401).json({ message: "Access denied. No token provided." });
             }
 
             const { newpassword } = req.body
 
-            const passwordDto = UpdatePasswordDTO(newpassword)
+            const passwordDto = UpdatePasswordDTO(token, newpassword)
+
 
             const result = await AuthService.UpdatePassword(
+                passwordDto.token,
                 passwordDto.newpassword,
                 req
             )

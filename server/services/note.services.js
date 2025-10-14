@@ -71,7 +71,7 @@ class NoteService {
     // update Note
 
     static async UpdateNote(noteid, title, content, uploadfile, token, req) {
-        // get token and decoded user 
+        // verify token
         let decoded;
         try {
             decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -82,20 +82,25 @@ class NoteService {
             throw new Error("Invalid token.");
         }
 
-        const user = await User.findOne({ email: decoded.email });
+        // find user and their role
+        const user = await User.findOne({ email: decoded.email }).populate("role");
         if (!user) throw new Error("User not found");
 
-        // check the note available in system
-        const existingNote = await Note.findById(noteid)
+        // get role permissions
+        const userPermissions = user.role?.permissions || [];
 
+        // fetch note
+        const existingNote = await Note.findById(noteid);
         if (!existingNote) {
-            throw new Error("Note Cannot be found in System")
+            throw new Error("Note not found in the system");
         }
 
-        // only note added user can update other cannot 
-        if (existingNote.student.toString() !== user._id.toString()) {
+        // determine permission
+        const isOwner = existingNote.student?.toString() === user._id.toString();
+        const canAdminUpdate = userPermissions.includes("note:update");
 
-            // if user attempt update rocde the recode it
+        // permission check
+        if (!isOwner && !canAdminUpdate) {
             if (req) {
                 const metadata = {
                     ipAddress: req.headers["x-forwarded-for"] || req.socket.remoteAddress,
@@ -106,23 +111,23 @@ class NoteService {
                 await logUserAction(
                     req,
                     "attempt_update_wrong_note",
-                    `${decoded.email} attempt update wrong note ${existingNote._id}, ${existingNote.title}`,
+                    `${decoded.email} attempted to update note ${existingNote._id} (${existingNote.title}) without permission`,
                     metadata,
                     user._id
                 );
             }
+
             throw new Error("You are not authorized to update this note");
         }
 
-        // Update only provided fields
-        if (title !== undefined && title.trim() !== "") existingNote.title = title;
-        if (content !== undefined && content.trim() !== "") existingNote.content = content;
-        if (uploadfile !== undefined && uploadfile !== "") existingNote.file = uploadfile;
-
+        // apply updates
+        if (title && title.trim() !== "") existingNote.title = title;
+        if (content && content.trim() !== "") existingNote.content = content;
+        if (uploadfile && uploadfile !== "") existingNote.file = uploadfile;
 
         const updatedNote = await existingNote.save();
 
-        // if successful then it also recoded
+        // log successful update
         if (req) {
             const metadata = {
                 ipAddress: req.headers["x-forwarded-for"] || req.socket.remoteAddress,
@@ -133,15 +138,88 @@ class NoteService {
             await logUserAction(
                 req,
                 "update_note",
-                `${decoded.email} updated a note`,
+                `${decoded.email} (${user.role?.name}) updated note ${updatedNote._id} (${updatedNote.title})`,
                 metadata,
                 user._id
             );
         }
 
-        return UpdateNoteResponseDTO()
-
+        return UpdateNoteResponseDTO(updatedNote);
     }
+
+
+    // static async UpdateNote(noteid, title, content, uploadfile, token, req) {
+    //     // get token and decoded user 
+    //     let decoded;
+    //     try {
+    //         decoded = jwt.verify(token, process.env.JWT_SECRET);
+    //     } catch (err) {
+    //         if (err.name === "TokenExpiredError") {
+    //             throw new Error("Token expired. Please request a new one.");
+    //         }
+    //         throw new Error("Invalid token.");
+    //     }
+
+    //     const user = await User.findOne({ email: decoded.email });
+    //     if (!user) throw new Error("User not found");
+
+    //     // check the note available in system
+    //     const existingNote = await Note.findById(noteid)
+
+    //     if (!existingNote) {
+    //         throw new Error("Note Cannot be found in System")
+    //     }
+
+    //     // only note added user can update other cannot 
+    //     if (existingNote.student.toString() !== user._id.toString()) {
+
+    //         // if user attempt update rocde the recode it
+    //         if (req) {
+    //             const metadata = {
+    //                 ipAddress: req.headers["x-forwarded-for"] || req.socket.remoteAddress,
+    //                 userAgent: req.headers["user-agent"],
+    //                 timestamp: new Date(),
+    //             };
+
+    //             await logUserAction(
+    //                 req,
+    //                 "attempt_update_wrong_note",
+    //                 `${decoded.email} attempt update wrong note ${existingNote._id}, ${existingNote.title}`,
+    //                 metadata,
+    //                 user._id
+    //             );
+    //         }
+    //         throw new Error("You are not authorized to update this note");
+    //     }
+
+    //     // Update only provided fields
+    //     if (title !== undefined && title.trim() !== "") existingNote.title = title;
+    //     if (content !== undefined && content.trim() !== "") existingNote.content = content;
+    //     if (uploadfile !== undefined && uploadfile !== "") existingNote.file = uploadfile;
+
+
+    //     const updatedNote = await existingNote.save();
+
+    //     // if successful then it also recoded
+    //     if (req) {
+    //         const metadata = {
+    //             ipAddress: req.headers["x-forwarded-for"] || req.socket.remoteAddress,
+    //             userAgent: req.headers["user-agent"],
+    //             timestamp: new Date(),
+    //         };
+
+    //         await logUserAction(
+    //             req,
+    //             "update_note",
+    //             `${decoded.email} updated a note`,
+    //             metadata,
+    //             user._id
+    //         );
+    //     }
+
+    //     return UpdateNoteResponseDTO()
+
+    // }
 
     static async DeleteNote(noteid, token, req) {
         // get token and decoded user 
@@ -231,7 +309,7 @@ class NoteService {
     }
 
     static async getallnotes() {
-        const getallnotes = await Note.find()
+        const getallnotes = await Note.find().populate("student")
 
         return GetAllNoteResponseDTO(getallnotes)
     }
@@ -240,7 +318,7 @@ class NoteService {
         const getonenote = await Note.findById(noteid)
 
         return GetOneNoteResponseDTO(getonenote)
-    }    
+    }
 }
 
 module.exports = NoteService

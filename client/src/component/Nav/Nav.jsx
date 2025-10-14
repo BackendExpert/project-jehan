@@ -34,7 +34,7 @@ const Navbar = () => {
                             :
                             <>
                                 <a href="/login" className="text-white block hover:text-pink-200 transition">Login</a>
-                                <a href="/registation" className="text-white block hover:text-pink-200 transition">Registation</a>
+                                <a href="/create-account" className="text-white block hover:text-pink-200 transition">Registation</a>
                             </>
                     }
 

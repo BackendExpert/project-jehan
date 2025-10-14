@@ -1,26 +1,16 @@
-import React from 'react'
+import React from "react";
 
 const DashFooter = () => {
     return (
-        <footer className="border-t border-blue-200">
-            <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col sm:flex-row items-center justify-between text-sm text-gray-600">
-                <p>
-                    &copy; {new Date().getFullYear()} The Dashboard.
+        <footer className="border-t border-purple-200 bg-white/70 backdrop-blur-md shadow-inner">
+            <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col sm:flex-row items-center justify-between text-sm text-purple-700">
+                <p>© {new Date().getFullYear()} Student Note Management. All rights reserved.</p>
+                <p className="mt-2 sm:mt-0 text-purple-500">
+                    Built with ❤️ by{" "} JehanKandy
                 </p>
-                {/* <p className="mt-2 sm:mt-0">
-                    Developed & Engineered by{" "}
-                    <a
-                        href="http://blackalphalabs.com/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-600 font-semibold hover:underline transition"
-                    >
-                        blackalphalabs
-                    </a>
-                </p> */}
             </div>
         </footer>
-    )
-}
+    );
+};
 
-export default DashFooter
+export default DashFooter;

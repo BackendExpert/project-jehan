@@ -1,0 +1,722 @@
+[
+    {
+        "_id": {
+            "$oid": "68ed6e1c14dfc1d66537f287"
+        },
+        "student": {
+            "$oid": "68e9b388bc690a2e5cf32504"
+        },
+        "title": "note sample 1",
+        "content": "Introduction to programming concepts and fundamental syntax structures.",
+        "file": "1760390684672.pdf",
+        "createdAt": {
+            "$date": "2025-10-13T21:24:44.677Z"
+        },
+        "updatedAt": {
+            "$date": "2025-10-13T21:24:44.677Z"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "68ed6e1c14dfc1d66537f288"
+        },
+        "student": {
+            "$oid": "68e9b388bc690a2e5cf32504"
+        },
+        "title": "note sample 2",
+        "content": "Detailed overview of data structures such as arrays, lists, and trees.",
+        "file": "1760390684672.pdf",
+        "createdAt": {
+            "$date": "2025-10-13T21:25:00.677Z"
+        },
+        "updatedAt": {
+            "$date": "2025-10-13T21:25:00.677Z"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "68ed6e1c14dfc1d66537f289"
+        },
+        "student": {
+            "$oid": "68e9b388bc690a2e5cf32504"
+        },
+        "title": "note sample 3",
+        "content": "Study materials on object-oriented programming and class design.",
+        "file": "1760390684672.pdf",
+        "createdAt": {
+            "$date": "2025-10-13T21:25:15.677Z"
+        },
+        "updatedAt": {
+            "$date": "2025-10-13T21:25:15.677Z"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "68ed6e1c14dfc1d66537f28a"
+        },
+        "student": {
+            "$oid": "68e9b388bc690a2e5cf32504"
+        },
+        "title": "note sample 4",
+        "content": "Concepts of database systems and relational schema normalization.",
+        "file": "1760390684672.pdf",
+        "createdAt": {
+            "$date": "2025-10-13T21:25:30.677Z"
+        },
+        "updatedAt": {
+            "$date": "2025-10-13T21:25:30.677Z"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "68ed6e1c14dfc1d66537f28b"
+        },
+        "student": {
+            "$oid": "68e9b388bc690a2e5cf32504"
+        },
+        "title": "note sample 5",
+        "content": "Lecture notes on operating systems and process management concepts.",
+        "file": "1760390684672.pdf",
+        "createdAt": {
+            "$date": "2025-10-13T21:25:45.677Z"
+        },
+        "updatedAt": {
+            "$date": "2025-10-13T21:25:45.677Z"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "68ed6e1c14dfc1d66537f28c"
+        },
+        "student": {
+            "$oid": "68e9b388bc690a2e5cf32504"
+        },
+        "title": "note sample 6",
+        "content": "Networking fundamentals including OSI and TCP/IP model explanations.",
+        "file": "1760390684672.pdf",
+        "createdAt": {
+            "$date": "2025-10-13T21:26:00.677Z"
+        },
+        "updatedAt": {
+            "$date": "2025-10-13T21:26:00.677Z"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "68ed6e1c14dfc1d66537f28d"
+        },
+        "student": {
+            "$oid": "68e9b388bc690a2e5cf32504"
+        },
+        "title": "note sample 7",
+        "content": "Overview of software engineering models, testing, and agile methods.",
+        "file": "1760390684672.pdf",
+        "createdAt": {
+            "$date": "2025-10-13T21:26:15.677Z"
+        },
+        "updatedAt": {
+            "$date": "2025-10-13T21:26:15.677Z"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "68ed6e1c14dfc1d66537f28e"
+        },
+        "student": {
+            "$oid": "68e9b388bc690a2e5cf32504"
+        },
+        "title": "note sample 8",
+        "content": "Web technologies introduction covering HTML, CSS, and basic JS.",
+        "file": "1760390684672.pdf",
+        "createdAt": {
+            "$date": "2025-10-13T21:26:30.677Z"
+        },
+        "updatedAt": {
+            "$date": "2025-10-13T21:26:30.677Z"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "68ed6e1c14dfc1d66537f28f"
+        },
+        "student": {
+            "$oid": "68e9b388bc690a2e5cf32504"
+        },
+        "title": "note sample 9",
+        "content": "Advanced JavaScript, event loops, promises, and async/await explained.",
+        "file": "1760390684672.pdf",
+        "createdAt": {
+            "$date": "2025-10-13T21:26:45.677Z"
+        },
+        "updatedAt": {
+            "$date": "2025-10-13T21:26:45.677Z"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "68ed6e1c14dfc1d66537f290"
+        },
+        "student": {
+            "$oid": "68e9b388bc690a2e5cf32504"
+        },
+        "title": "note sample 10",
+        "content": "C programming functions, arrays, pointers, and memory management.",
+        "file": "1760390684672.pdf",
+        "createdAt": {
+            "$date": "2025-10-13T21:27:00.677Z"
+        },
+        "updatedAt": {
+            "$date": "2025-10-13T21:27:00.677Z"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "68ed6e1c14dfc1d66537f291"
+        },
+        "student": {
+            "$oid": "68e9b388bc690a2e5cf32504"
+        },
+        "title": "note sample 11",
+        "content": "Compiler design: lexical analysis, parsing, and code generation basics.",
+        "file": "1760390684672.pdf",
+        "createdAt": {
+            "$date": "2025-10-13T21:27:15.677Z"
+        },
+        "updatedAt": {
+            "$date": "2025-10-13T21:27:15.677Z"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "68ed6e1c14dfc1d66537f292"
+        },
+        "student": {
+            "$oid": "68e9b388bc690a2e5cf32504"
+        },
+        "title": "note sample 12",
+        "content": "Cloud computing overview and service models (IaaS, PaaS, SaaS).",
+        "file": "1760390684672.pdf",
+        "createdAt": {
+            "$date": "2025-10-13T21:27:30.677Z"
+        },
+        "updatedAt": {
+            "$date": "2025-10-13T21:27:30.677Z"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "68ed6e1c14dfc1d66537f293"
+        },
+        "student": {
+            "$oid": "68e9b388bc690a2e5cf32504"
+        },
+        "title": "note sample 13",
+        "content": "Computer architecture notes focusing on CPU and memory design.",
+        "file": "1760390684672.pdf",
+        "createdAt": {
+            "$date": "2025-10-13T21:27:45.677Z"
+        },
+        "updatedAt": {
+            "$date": "2025-10-13T21:27:45.677Z"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "68ed6e1c14dfc1d66537f294"
+        },
+        "student": {
+            "$oid": "68e9b388bc690a2e5cf32504"
+        },
+        "title": "note sample 14",
+        "content": "Artificial Intelligence concepts including search and reasoning methods.",
+        "file": "1760390684672.pdf",
+        "createdAt": {
+            "$date": "2025-10-13T21:28:00.677Z"
+        },
+        "updatedAt": {
+            "$date": "2025-10-13T21:28:00.677Z"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "68ed6e1c14dfc1d66537f295"
+        },
+        "student": {
+            "$oid": "68e9b388bc690a2e5cf32504"
+        },
+        "title": "note sample 15",
+        "content": "Machine learning introduction: supervised and unsupervised learning.",
+        "file": "1760390684672.pdf",
+        "createdAt": {
+            "$date": "2025-10-13T21:28:15.677Z"
+        },
+        "updatedAt": {
+            "$date": "2025-10-13T21:28:15.677Z"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "68ed6e1c14dfc1d66537f296"
+        },
+        "student": {
+            "$oid": "68e9b388bc690a2e5cf32504"
+        },
+        "title": "note sample 16",
+        "content": "Data analytics and visualization using Python libraries such as pandas.",
+        "file": "1760390684672.pdf",
+        "createdAt": {
+            "$date": "2025-10-13T21:28:30.677Z"
+        },
+        "updatedAt": {
+            "$date": "2025-10-13T21:28:30.677Z"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "68ed6e1c14dfc1d66537f297"
+        },
+        "student": {
+            "$oid": "68e9b388bc690a2e5cf32504"
+        },
+        "title": "note sample 17",
+        "content": "Cybersecurity principles, encryption basics, and best practices.",
+        "file": "1760390684672.pdf",
+        "createdAt": {
+            "$date": "2025-10-13T21:28:45.677Z"
+        },
+        "updatedAt": {
+            "$date": "2025-10-13T21:28:45.677Z"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "68ed6e1c14dfc1d66537f298"
+        },
+        "student": {
+            "$oid": "68e9b388bc690a2e5cf32504"
+        },
+        "title": "note sample 18",
+        "content": "Information systems management and project planning overview.",
+        "file": "1760390684672.pdf",
+        "createdAt": {
+            "$date": "2025-10-13T21:29:00.677Z"
+        },
+        "updatedAt": {
+            "$date": "2025-10-13T21:29:00.677Z"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "68ed6e1c14dfc1d66537f299"
+        },
+        "student": {
+            "$oid": "68e9b388bc690a2e5cf32504"
+        },
+        "title": "note sample 19",
+        "content": "Mobile application development fundamentals with Android SDK.",
+        "file": "1760390684672.pdf",
+        "createdAt": {
+            "$date": "2025-10-13T21:29:15.677Z"
+        },
+        "updatedAt": {
+            "$date": "2025-10-13T21:29:15.677Z"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "68ed6e1c14dfc1d66537f29a"
+        },
+        "student": {
+            "$oid": "68e9b388bc690a2e5cf32504"
+        },
+        "title": "note sample 20",
+        "content": "Computer graphics introduction including rendering and transformations.",
+        "file": "1760390684672.pdf",
+        "createdAt": {
+            "$date": "2025-10-13T21:29:30.677Z"
+        },
+        "updatedAt": {
+            "$date": "2025-10-13T21:29:30.677Z"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "68ed6e1c14dfc1d66537f29b"
+        },
+        "student": {
+            "$oid": "68e9b388bc690a2e5cf32504"
+        },
+        "title": "note sample 21",
+        "content": "Parallel and distributed computing basics for multicore systems.",
+        "file": "1760390684672.pdf",
+        "createdAt": {
+            "$date": "2025-10-13T21:29:45.677Z"
+        },
+        "updatedAt": {
+            "$date": "2025-10-13T21:29:45.677Z"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "68ed6e1c14dfc1d66537f29c"
+        },
+        "student": {
+            "$oid": "68e9b388bc690a2e5cf32504"
+        },
+        "title": "note sample 22",
+        "content": "Data mining methods and clustering algorithms explained in depth.",
+        "file": "1760390684672.pdf",
+        "createdAt": {
+            "$date": "2025-10-13T21:30:00.677Z"
+        },
+        "updatedAt": {
+            "$date": "2025-10-13T21:30:00.677Z"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "68ed6e1c14dfc1d66537f29d"
+        },
+        "student": {
+            "$oid": "68e9b388bc690a2e5cf32504"
+        },
+        "title": "note sample 23",
+        "content": "Research methodologies and paper structuring for computer science.",
+        "file": "1760390684672.pdf",
+        "createdAt": {
+            "$date": "2025-10-13T21:30:15.677Z"
+        },
+        "updatedAt": {
+            "$date": "2025-10-13T21:30:15.677Z"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "68ed6e1c14dfc1d66537f29e"
+        },
+        "student": {
+            "$oid": "68e9b388bc690a2e5cf32504"
+        },
+        "title": "note sample 24",
+        "content": "Blockchain fundamentals including hashing and consensus algorithms.",
+        "file": "1760390684672.pdf",
+        "createdAt": {
+            "$date": "2025-10-13T21:30:30.677Z"
+        },
+        "updatedAt": {
+            "$date": "2025-10-13T21:30:30.677Z"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "68ed6e1c14dfc1d66537f29f"
+        },
+        "student": {
+            "$oid": "68e9b388bc690a2e5cf32504"
+        },
+        "title": "note sample 25",
+        "content": "Ethical hacking and penetration testing notes with case studies.",
+        "file": "1760390684672.pdf",
+        "createdAt": {
+            "$date": "2025-10-13T21:30:45.677Z"
+        },
+        "updatedAt": {
+            "$date": "2025-10-13T21:30:45.677Z"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "68ed70a1122069dee0944b43"
+        },
+        "student": {
+            "$oid": "68ed706f122069dee0944b1e"
+        },
+        "title": "note about React components",
+        "content": "Covers functional and class components in ReactJS with examples.",
+        "file": "1760391329749.txt",
+        "createdAt": {
+            "$date": "2025-10-13T21:36:00.755Z"
+        },
+        "updatedAt": {
+            "$date": "2025-10-13T21:36:00.755Z"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "68ed70a1122069dee0944b44"
+        },
+        "student": {
+            "$oid": "68ed706f122069dee0944b1e"
+        },
+        "title": "note about React state management",
+        "content": "Explains useState, useReducer, and state lifting patterns.",
+        "file": "1760391329749.txt",
+        "createdAt": {
+            "$date": "2025-10-13T21:36:15.755Z"
+        },
+        "updatedAt": {
+            "$date": "2025-10-13T21:36:15.755Z"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "68ed70a1122069dee0944b45"
+        },
+        "student": {
+            "$oid": "68ed706f122069dee0944b1e"
+        },
+        "title": "note about React hooks",
+        "content": "Detailed summary of useEffect, useMemo, useCallback, and custom hooks.",
+        "file": "1760391329749.txt",
+        "createdAt": {
+            "$date": "2025-10-13T21:36:30.755Z"
+        },
+        "updatedAt": {
+            "$date": "2025-10-13T21:36:30.755Z"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "68ed70a1122069dee0944b46"
+        },
+        "student": {
+            "$oid": "68ed706f122069dee0944b1e"
+        },
+        "title": "note about React routing",
+        "content": "Describes React Router v6 features such as nested routes and hooks.",
+        "file": "1760391329749.txt",
+        "createdAt": {
+            "$date": "2025-10-13T21:36:45.755Z"
+        },
+        "updatedAt": {
+            "$date": "2025-10-13T21:36:45.755Z"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "68ed70a1122069dee0944b47"
+        },
+        "student": {
+            "$oid": "68ed706f122069dee0944b1e"
+        },
+        "title": "note about props and context",
+        "content": "Covers prop drilling and using React Context API for global state.",
+        "file": "1760391329749.txt",
+        "createdAt": {
+            "$date": "2025-10-13T21:37:00.755Z"
+        },
+        "updatedAt": {
+            "$date": "2025-10-13T21:37:00.755Z"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "68ed70a1122069dee0944b48"
+        },
+        "student": {
+            "$oid": "68ed706f122069dee0944b1e"
+        },
+        "title": "note about React performance",
+        "content": "Optimizing React with memoization, lazy loading, and code splitting.",
+        "file": "1760391329749.txt",
+        "createdAt": {
+            "$date": "2025-10-13T21:37:15.755Z"
+        },
+        "updatedAt": {
+            "$date": "2025-10-13T21:37:15.755Z"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "68ed70a1122069dee0944b49"
+        },
+        "student": {
+            "$oid": "68ed706f122069dee0944b1e"
+        },
+        "title": "note about React lifecycle",
+        "content": "Describes component lifecycle methods and their equivalents in hooks.",
+        "file": "1760391329749.txt",
+        "createdAt": {
+            "$date": "2025-10-13T21:37:30.755Z"
+        },
+        "updatedAt": {
+            "$date": "2025-10-13T21:37:30.755Z"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "68ed70a1122069dee0944b4a"
+        },
+        "student": {
+            "$oid": "68ed706f122069dee0944b1e"
+        },
+        "title": "note about React forms",
+        "content": "Explains controlled and uncontrolled components with examples.",
+        "file": "1760391329749.txt",
+        "createdAt": {
+            "$date": "2025-10-13T21:37:45.755Z"
+        },
+        "updatedAt": {
+            "$date": "2025-10-13T21:37:45.755Z"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "68ed70a1122069dee0944b4b"
+        },
+        "student": {
+            "$oid": "68ed706f122069dee0944b1e"
+        },
+        "title": "note about React events",
+        "content": "Covers synthetic events and event handling differences from HTML.",
+        "file": "1760391329749.txt",
+        "createdAt": {
+            "$date": "2025-10-13T21:38:00.755Z"
+        },
+        "updatedAt": {
+            "$date": "2025-10-13T21:38:00.755Z"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "68ed70a1122069dee0944b4c"
+        },
+        "student": {
+            "$oid": "68ed706f122069dee0944b1e"
+        },
+        "title": "note about React keys and lists",
+        "content": "How to render lists efficiently and use unique keys properly.",
+        "file": "1760391329749.txt",
+        "createdAt": {
+            "$date": "2025-10-13T21:38:15.755Z"
+        },
+        "updatedAt": {
+            "$date": "2025-10-13T21:38:15.755Z"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "68ed70a1122069dee0944b4d"
+        },
+        "student": {
+            "$oid": "68ed706f122069dee0944b1e"
+        },
+        "title": "note about JSX and rendering",
+        "content": "Details how JSX compiles to React.createElement and renders UI.",
+        "file": "1760391329749.txt",
+        "createdAt": {
+            "$date": "2025-10-13T21:38:30.755Z"
+        },
+        "updatedAt": {
+            "$date": "2025-10-13T21:38:30.755Z"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "68ed70a1122069dee0944b4e"
+        },
+        "student": {
+            "$oid": "68ed706f122069dee0944b1e"
+        },
+        "title": "note about React deployment",
+        "content": "Covers building React apps for production and hosting best practices.",
+        "file": "1760391329749.txt",
+        "createdAt": {
+            "$date": "2025-10-13T21:38:45.755Z"
+        },
+        "updatedAt": {
+            "$date": "2025-10-13T21:38:45.755Z"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "68ed70a1122069dee0944b4f"
+        },
+        "student": {
+            "$oid": "68ed706f122069dee0944b1e"
+        },
+        "title": "note about React context vs Redux",
+        "content": "Comparison of Context API and Redux for managing global state.",
+        "file": "1760391329749.txt",
+        "createdAt": {
+            "$date": "2025-10-13T21:39:00.755Z"
+        },
+        "updatedAt": {
+            "$date": "2025-10-13T21:39:00.755Z"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "68ed70a1122069dee0944b50"
+        },
+        "student": {
+            "$oid": "68ed706f122069dee0944b1e"
+        },
+        "title": "note about React and TypeScript",
+        "content": "Covers typing components, props, and hooks in React with TypeScript.",
+        "file": "1760391329749.txt",
+        "createdAt": {
+            "$date": "2025-10-13T21:39:15.755Z"
+        },
+        "updatedAt": {
+            "$date": "2025-10-13T21:39:15.755Z"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "68ed70a1122069dee0944b51"
+        },
+        "student": {
+            "$oid": "68ed706f122069dee0944b1e"
+        },
+        "title": "note about React and API calls",
+        "content": "Explains how to fetch and manage API data in React using Axios or fetch.",
+        "file": "1760391329749.txt",
+        "createdAt": {
+            "$date": "2025-10-13T21:39:30.755Z"
+        },
+        "updatedAt": {
+            "$date": "2025-10-13T21:39:30.755Z"
+        },
+        "__v": 0
+    }
+]

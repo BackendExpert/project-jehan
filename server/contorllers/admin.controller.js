@@ -1,5 +1,14 @@
-const { CreatePremissionDTO } = require("../dtos/premission.dto");
 const AdminService = require("../services/admin.service");
+
+const { 
+    CreatePremissionDTO, 
+    ErrorResponseDTO
+} = require("../dtos/premission.dto");
+
+const {
+    GetOneActivityDTO,
+    ActErrorResponseDTO
+} = require('../dtos/activities.dto')
 
 const AdminController = {
     createPremission: async (req, res) => {
@@ -39,6 +48,33 @@ const AdminController = {
         }
         catch(err){
             return res.status(400).json(ErrorResponseDTO(err.message));
+        }
+    },
+    
+    getallactivities: async(req, res) => {
+        try{
+            const result = await AdminService.getallactivities()
+            res.status(200).json(result)
+        }
+        catch(err){
+            return res.status(400).json(ActErrorResponseDTO(err.message));
+        }
+    },
+
+    getoneactivity: async(req, res) => {
+        try{
+            const actid = req.params.id
+
+            const actidto = GetOneActivityDTO(actid)
+
+            const result = await AdminService.getoneactivity(
+                actidto.activiteId
+            )
+
+            res.status(200).json(result)
+        }
+        catch(err){
+            return res.status(400).json(ActErrorResponseDTO(err.message));            
         }
     }
 };

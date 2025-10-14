@@ -127,7 +127,7 @@ class AuthService {
                         <!-- Footer -->
                         <div style="background-color: #f9fafb; padding: 20px; text-align: center; font-size: 13px; color: #9ca3af;">
                             <p style="margin: 5px 0;">© ${new Date().getFullYear()} Student Note Management System</p>
-                            <p style="margin: 0;">University of Peradeniya | All Rights Reserved</p>
+                            <p style="margin: 0;">All Rights Reserved</p>
                         </div>
                     </div>
                 </div>
@@ -372,7 +372,7 @@ class AuthService {
 
                         <!-- Body -->
                         <div style="padding: 35px; color: #333;">
-                            <h2 style="font-size: 22px; margin-bottom: 10px; color: #1e3a8a;">Hello ${user.username},</h2>
+                            <h2 style="font-size: 22px; margin-bottom: 10px; color: #1e3a8a;">Hello ${existinguser.username},</h2>
 
                             <p style="font-size: 16px; line-height: 1.6; margin-bottom: 20px; color: #374151;">
                                 We received a request to <strong>reset your password</strong> for your Student Note Management System account.
@@ -457,7 +457,8 @@ class AuthService {
 
         const checkotprecode = await UserOTP.findOne({ email: decoded.email });
         if (!checkotprecode) throw new Error("OTP Record Not found");
-
+        // console.log(otp)
+        
         const otpcheck = await bcrypt.compare(otp, checkotprecode.otp);
 
         if (!otpcheck) {
