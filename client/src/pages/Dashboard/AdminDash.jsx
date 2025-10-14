@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { FaUsers, FaClipboardList, FaDollarSign, FaChartLine } from 'react-icons/fa';
 import { FaFile } from 'react-icons/fa6';
 import API from '../../service/api';
+import CountUp from 'react-countup';
+
 
 
 const AdminDash = () => {
@@ -79,7 +81,7 @@ const AdminDash = () => {
                     >
                         <div>
                             <h2 className="text-sm font-medium">{stat.title}</h2>
-                            <p className="text-2xl font-bold mt-2">{stat.value}</p>
+                            <p className="text-2xl font-bold mt-2"><CountUp end={stat.value} duration={5}/></p>
                         </div>
                         <div className="bg-purple-200 p-3 rounded-full">{stat.icon}</div>
                     </div>
