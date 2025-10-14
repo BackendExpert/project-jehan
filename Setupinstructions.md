@@ -153,11 +153,4 @@ docker-compose up --build
 
 ---
 
-## 📜 License
-Licensed under the **ISC License**.  
-Free to use and modify for your projects.
 
----
-
-**Developed by [Your Name / Team]**  
-💡 *Built with ❤️ using the MERN stack.*
